@@ -1,0 +1,5 @@
+/node_modules
+/package-lock.json
+/coverage
+/test
+.DS_Store
