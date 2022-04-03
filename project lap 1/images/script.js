@@ -1,5 +1,0 @@
-function changeSearchBackgroundColour{
-
-}
-
-document.querySelector()
