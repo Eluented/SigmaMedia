@@ -1,10 +1,10 @@
 # :fire: Sigma-Media :fire:
 Lap 1 Project with our amazing group: Direm, Jianli, Michael and Onur! We decided to create an anonymous social media website aimed at a specific demographic of people who are obsessed with self-improvement and helping others! :clap:
 
-## Project Brief
+## Project Brief :thought_balloon:
 * You will be working in small teams to create a community journaling website.
 
-## Project Requirements 
+## Project Requirements :exclamation:
 
 ### Functionality :sun_with_face:
 * Users should be able to visit the website and anonymously post journal entries.
@@ -35,7 +35,7 @@ Lap 1 Project with our amazing group: Direm, Jianli, Michael and Onur! We decide
 ** Live Demonstration
 * There will be a 5 minute opportunity for Q&A after each presentation
 
-## Planning
+## Planning :weary:
 We used a Kanban Board and Adobe Illustrator to plan our our first moves and designs
 
 ### Kanban Board
@@ -61,8 +61,8 @@ We used a Kanban Board and Adobe Illustrator to plan our our first moves and des
 * Working with 4 people simulaltenously working on the same repository using different branches
 * Getting the Users Online section working
 
-### Bugs
+### Bugs :trollface:
 
-### Future Features
+### Future Features :dragon_face:
 
-## Final Product
+## Final Product :tulip:
