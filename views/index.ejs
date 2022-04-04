@@ -4,10 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Sigma - General</title>
 	<link rel="stylesheet" href="/style.css">
-	<script type="module">
-		import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
-		const socket = io();
-	</script>
+	<script defer type="module" src="/script.js"></script>
 	</link>
 </head>
 
@@ -190,8 +187,8 @@
 					<img class="profile-image" src="images/anonymousChad.jpg">
 				</div>
 				<div class="right-column">
-					<form class="top-row">
-						<input placeholder="Speak Your Mind Chad">
+					<form id="post-form" class="top-row">
+						<input type="text "placeholder="Speak Your Mind Chad" id="posttext">
 					</form>
 					<div class="bottom-row">
 						<div class="buttons">
@@ -237,7 +234,7 @@
 							</div>
 						</div>
 						<!-- Post Button -->
-						<button class="tweet-btn">Post</button>
+						<button form="post-form" type="submit" class="tweet-btn">Post</button>
 					</div>
 				</div>
 			</div>
@@ -431,8 +428,8 @@
 			</div>
 			<div class="trends">
 				<header class="trends-header">
-					<h2>
-						<span>İlgini çekebilecek <br>gündemler</span>
+					<h2 style="color: beige;">
+						<span id="users-online">Chads Online: 0</span>
 						<div>
 							<svg viewBox="0 0 24 24" aria-hidden="true">
 								<g>
