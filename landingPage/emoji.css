@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+/*holder that just positions the button*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    background-color: rgba(128, 128, 128, 0.37);
+}
+
+.dummyBox {
+    height: 500px;
+    width: 700px;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+/*holder that just positions the button, delete everything before this*/
+
+.emojiContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.reactBox {
+    position: relative;
+}
+
+.reactBtn {
+    position: absolute;
+    text-transform: capitalize;
+    text-decoration: none;
+    padding: 10px 30px;
+    color: white;
+    background-color: black;
+    font-family: Source Sans Pro;
+    font-size: 15px;
+    border-radius: 50px;
+    z-index: 1;
+}
+
+.emoji {
+    width: 400px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 50px;
+    margin-top: -15px;
+    margin-left: -15px;
+    cursor: pointer;
+    transform: translateY();
+    transition: all 0.4s;
+    position: relative;
+    visibility: hidden;
+    opacity: 0;
+    z-index: -1;
+}
+
+.emoji img {
+    display: block;
+    width: 70px;
+    transition: all 0.4s;
+}
+
+.emoji img:hover{
+    transform: translateY(-10%) scale(1.2);
+    filter: drop-shadow(0 1px 5px grey);
+}
+
+.reacts p {
+    position: absolute;
+    top: 70px;
+    font-family: Source Sans Pro;
+    font-size: 15px;
+    background-color: rgba(0,0,0,0.9);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 50px;
+    margin-left: 0;
+    transition: all 0.2s;
+    text-align: center;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.reacts:hover p {
+    visibility: visible;
+    opacity: 1;
+}
+
+.emojiContainer:hover .emoji{
+    transform: translateY(0);
+    visibility: visible;
+    opacity: 1;
+    z-index: inherit;
+}
+
+.holder {
+    width: 120px;
+    background-color: aqua;
+}
