@@ -1,14 +1,29 @@
 <html lang="en">
 
 <head>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<meta charset="UTF-8">
 	<title>Sigma - General</title>
 	<script defer src="script.js"></script>
 	<link rel="stylesheet" href="style.css">
-	</link>
+</head>
 </head>
 
 <body>
+	<div class="bg-modal">
+		<div class="modal-content">
+			<div class="top-popup">
+				<form class="gif-forum">
+					<div class="close">+</div>
+					<input class="gif-search" type="text" placeholder="Search for a GIF Chad">
+				</form>
+			</div>
+			<div class="gif-container">
+
+			</div>
+		</div>
+	</div>
 	<main class="container">
 		<div>
 		</div>
@@ -21,9 +36,7 @@
 					<div>
 						<a href="">
 							<div>
-								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 500 500">
-									<image x="72" y="75" width="337" height="351" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVEAAAFfCAYAAAD3fP8yAAAbf0lEQVR4nO3dZ5ieRdnG8TOkkFCSEDqhqEiL0t+8gCAgIEUURFGaIL70Ir0pvfcqNaKiKFVRUBQULCgCBqUoLQKiEDqBBAiElH2PkTMQkuzuPbtPmbnn//viFw+9dvLsufdzXzPX9Ono6DhD0i6SpggAEOOFEKLDJV0paX1JfVg+AKjspTkkjZW0n6RHWDcAiDJ1Dv+3H5K0v6RnWT8AqG56iHZIul3S4ZImsH4AUM0cM/y3QpBeJ+lUSZNYPwDo3hwz/TfekXSppO/SrQeA7s0cosFrksK2p19LmsYaAkDnZheiwVOSjpZ0P2sHAJ3rLESDvzlIn2b9AGD2ugrR4FZJJ/orPgBgJt2F6FRJV0k6T9JEFg8APqi7EA3elHSRj4ZOZv0A4H1VQjR4WdJp/noPALCqISp37I+VNJrFA4B3xYSo3LEPQfo46wcA8SEqb8I/xV/xAaBoPQnR0LG/WtLZbjoBQLF6EqLB25IukXQFHXsAJetpiAbj3bH/OZ8gAKXqTYgGz0g6SdKdfIIAlKi3IRrcJ+kESWP4BAEoTSNCNLjNHfvn+QQBKEmjQjTMHb1W0vmSXucTBKAUjQpRuWM/ymfsmYoPoAiNDNFgnCc+/YKPD4ASNDpEg39KOl3SPXyCANRdM0JUDtDTOGMPoO6aFaLh+uWbHaTP8SkCUFfNClH5OOg1ki6UNIFPEIA6amaIygNKRjEVH0BdNTtE5ZF553PGHkAdtSJENUPH/k98igDUSatCVL5WJDSaHuUTBKAuWhmiHZ6Kf4aksXyCANRBK0NUbi5dS8ceQF20OkSDiZIuZSo+gDpoR4gGr0k6R9JP/TUfALLUrhAN/u1G0x18dADkqp0hGjzg60X+nu8SAihZu0M0DHP+vTv2z5T9TwEgR+0OUXmA84/p2APIUQohKk/FDx3770l6J4F6AKCSVEJUvsf+LEk3+Ws+ACQvpRDVDPfY/5GtTwBykFqIyp36EyU9kkAtANClFEN0esc+7CF9NoF6AKBTKYZoMFXS1Z5D+loC9QDAbKUaovLWp4s9FX9SAvUAwCxSDtHgDW/Ev5FhJQBSlHqIyh37EzwVn61PAJKSQ4gGD0k62VPx2foEIBm5hGhwu4OUjj2AZOQUonLH/lxJ4xKoBQCyC9EODyq5whPyAaCtcgtRebtT2Ih/PR17AO2WY4gGL0k61e9J6dgDaJtcQzR4zMNK7kugFgCFyjlEgzu9Gf8/CdSSq2lsGwN6rl8N1i68G11U0vGShiRQT05CgD4l6WVJgyT15fUIeqiPB6rPKWkJSfOWspB1CNEOT8VfTNJ+kgYmUFMuwjeRByWd5yO2g3gqRS9M8gPNIZLW9h/l2qtDiMr/eKHRtIikHUr5x2uQkX5yuIqnUDRA+Db4lZL+GOf+TnRGr/lEE/fYxxnu98rb1eiPKtpnsL/SF6NOIRqMkXScpH8kUEtOwlewIyWtW/pCoNf6lLaEdQtR+Un0KEkvJFBLTlaQdKyklUpfCCBGHUNUnj8a9pC+nkAtOVnXf4CWKn0hgKrqGqLB5e7aMxU/zpe8y2H+nIoG2qXOIfq2pLMl3ZBALbnZXdKOkuYufSGA7tQ5ROX3oif69lBUN4+kQyVtwXYxoGt1D1H5/vqjucc+2mJ+P7peZnUDLVVCiMr3M4VAGJtALTkZ4QbdyqUvBNCZUkJU7tifwlT8aGtJOsanmgDMpKQQnSrpB5IuYSp+tC/4PPSwzOoGmq6kEJWHbFwk6UeSpiRQT072kLRnaUf6gO6UFqLBc5LOknRzArXkJITnwZK2LX0hgBmVGKLyGfsw9emeBGrJyTDPJvhU6QsBTFdqiMoBGvaQPplALTn5kKTTJX2s9IUAVHiIBrf4ifSVBGrJyUjfJLBo6QsBlB6iUz2M+CLO2EcLHfsjSroGApid0kNU3u50saQfJlBLTsLcyF0l7V36QmAWJV0x00GIvusFT3f/RQrFZGQuSQdJ2qb0hcB7wh/X/gU9oPUnRN83xteLPJBKQZlYyCeamIoPOTyHFBSi8/fp6OByxxmEv6JbSjpf0pLJVJWH2z2H9OHSF6JwC0jaTdIq/lpf94B5ixCdVX9/CMJT6dDUikvYZEnX+Xjo86UvRsH6+kl07kLejU4hRGdvHneeD3Ooopo3PZvgeB+xBWqPd6Kz94a/0tOxjxOePnb2kzxQBEK0cy95I/5vUi0wUeGd2P6Sdih9IVAGQrRr//RX07+lXGSCwm2h35S0QekLgfojRLt3l8/YP556oYkZ4WtZmIqPWiNEuzdN0i8lnSPpxdSLTcwnHKTcY4/aIkSreUfS9yVd5g40qhkgaVPfHDqYNUMdEaLVhTP2F3gq/tRcik5A6NhvJ2kfH2YAaoUQjfOypDMl3ZpT0QkY5hDdufSFQP0QovGecMf+L7kV3mbD/bV+06JXAbVDiMYLR7zu9fXLY3Irvs2Wc6NptaJXAbVCiPbMNF90d67H6KGa8Hn7X0lH+poRIHuEaM+FK5evkHQp58Sj9PNX+kPo2KMOCNHeedtn7K/1NihUE4Y5by9pXzr2yB0h2nuv+v3obYVdi9Bb80naU9KOef8YKB0h2hhP+mjovXX4YVpoCUkHS9qkmJ8YtUOINs7dkk7y0BJUt5KkwyWtzpohR4RoY93kC+/o2Mf5pPeQfjinogERok3xHV/BPKGGP1uz9PPdVgd5HimQDUK08Tq8fzR07N+q2w/XRAMl7SRpL3fvgSwQos3xuqQTPBV/ch1/wCYZ7DP2O/rpFEgeIdo8z0g61g0npj5Vt7CkAyR91jdHAkkjRJvrfg8rebTOP2QTLO+O/VpsxkfqCNHmu90de+5ij7OmO/bL51Q0ykOItkYY5PwtSeNL+GEbaHNvxl+8Nj8RaocQbY3wTvQihykd++r6+oz9HpKG5FI0ykKIts54n7G/hY59lEGSdvc99nNmVDcKQYi21lg3mu5mWEmUhbwRn449kkOItt4Dkk6mYx9taXfs16Bjj5QQou0RLro7nXvso42UdJSkEZnVjRojRNvnanfsucc+zmaeir9ETkWjvgjR9gmT8C+RdCWNpmjbumM/NLO6UUOEaHu94nvsf0mjKcpAh2gI0wEZ1Y0aIkTbb/pU/LtKX4hIC/hr/WZ8jtFOfPjS8FdPxX+i9IWItLTvsV8rq6pRK4RoOm7xZnw69nFWd5CukFPRqA9CNB3hnehVHujMVPw4m/ir/fCcikY9EKJpCffYj5L0fTr20XbwFcyDM6sbmSNE0zNO0vmSbix9ISKFc/V7S9qOjj1aiRBN0xOeQfqn0hci0jAfDf0MR0PRKoRoukZ769OY0hci0od9LcvaWVWNbBGiabvdHXvusY+zijv2y+VUNPJEiKYtDHO+3u9I3yh9MSJtLOkIX3wHNA0hmr6Jkr4r6QelL0QPhKn4+0qaJ7vKkQ1CNA8v+Gn0p6UvRKQBvsf+K5L6Z1U5skGI5iM0mE6VdGfpCxFpPklHSvpcVlUjG4RoXu51x/6x0hciUrgt9DhJ62RVNbJAiOalwx378ET6UumLEWlFb33iHns0FCGanymSfuJ3pBNLX4xIG0j6Bh17NBIhmqew3enbki5nmHOU8Hn/sqQDJM2VUd1IGCGarxd9RxMd+zgDPajkaxwNRSMQonl7XNJpdOyjDfWtoVtmVjcS1Kejg2+DmQt/CDeSdB6DiaM95CfS0ZnVjYTwJJq/aZJ+5yfSZ0tfjEgf806HD2dVNZJCiNZDGOD8Yz+Nvl76YkRaT9LJ3pQPRCNE62OiJ+J/x3fao5p+krby1icaTYhGiNZL6NhfIOm60hciUujY7+7J+EAUQrR+npJ0tqTbSl+ISEN8xn6LrKpG2xGi9RO2Wzzoe+zvK30xIi3qIdgjs6oabUWI1tM07x093U+mqC5sEztT0pKsGaogROtrik8zhXekr5S+GBHC78Ra/gM0bzZVo20I0Xp7x936y32nPaoZ4Pmjx/gqZqBThGj9TfAZ+6t9ZxOqmVvSLu7Ys/UJnSJEy/Cs77H/VekLESlswD/Qk5+A2SJEy9Dhafih83xP6YsRaXEPK1k/q6rRMoRoOUKQ3u0z9mNKX4wI4av8CF8vMiKbqtEyhGhZQpDe6I79i6UvRoTwe/IJXy+yUDZVoyUI0fKEIL1M0ihJb5a+GBH6u2N/BFPxMSNCtExhD+m5vquJjn11gyTt7Mn4fXMpGs1FiJZrnI+G/tonnFBN6NgfJOlL/P5AfAiK908H6WguvIsy3Bvx12MPKQhR/NlnxccQpFHCGfsTuJIFhCjkd6Pf4nqRaGt769MimdWNBiJEMd0on7Mfx4pUFr7Kf95T8enYF4oQxXThnqbzJV3vq0ZQTX/fGPp1T8hHYQhRzGicz9j/xtugUE0YmXewpG19ZxMKQohiZk+6Y383W5+iLOiv9evTsS8LIYrZudfDSh5mdaIs60bTihnVjF4iRNGZMDbvLElPs0JR1vYe0iUyqhm9QIiiK9931/41VinKVj5jP19GNaOHCFF0J0x8upbrRaLM4Y79vp6QjxojRNGdCX4/+hsaTVEGOUS38TYo1BQhiir+41ma97JaUcLs0UMlbUjHvr4IUVR1nxsmT7JiUZb31qdVMqoZEQhRxLjV97G/yqpFWVfSYZKWzKhmVESIItb3PBmfRlOcL0raj459/RCiiDXZo/N+QqMpSmgu7SppN4aV1Aship4Y55M5t7F6UYZIOsBT8blepCYIUfTU4x5KfB8rGGVRvx/dIKOa0QVCFL1xp6STvQUK1Y1wx3511ix/hCh66yZvxh/LSkb5lKSjJK3EHtK8EaLorckO0kdZyWib+2mUEM0YIYreCl3nLbypHHFulvRXLgjMG1O40VshQL/pa4RR3e88/PpB1ixvPImiN8LszCM5iRMtDLs+1U+hyBwhip5a2mfpV2UFozzne6x+m1HN6AIhip4Y5s32G7F6UcZLOs83qk7NqG50gRBFrP4e77Y1n58oYRfDdyVdzpXU9cIvAWKFie17cMd6tBt8r/+4zOpGNwhRxNhE0uFMIop2h0cI/juzulEBIYqqwlDh4yV9hBWL8qg78fdnVDMiEKKoYkkH6EhWK8qLHht4Oxvq64sQRXcGezP9xnxeorwl6ULflDo5o7oRiV8KdGc/31hJI6m6ab4BIITom7kUjZ4hRNGVr0raXdJQVinKTyWdxl1UZSBE0ZlNJR0iaQlWKMqdHlb9dEY1oxcIUczO6j4TP4LViTLGJ7n+nlHN6CVCFDMLW5iOlrQmn48oL3sr0+/pxJeFXxLMaJjv/9mYMYlRXpd0lqRrJE3JqG40ACGK6cKZ+P19E+UgVqWyye7Ef4u7+MtEiGK6cB/6Ln4aRTXha/vP/DWeoSKFIkQRfEHS1yUtxmpEudONpOczqhkNRojiE34PuhwXpkV5xEOpH8moZjQBIVq2ZXxt70gCNMpY7wX9A514EKLlGuYA5Ux8nHAK6RxPp5+WU+FoDn55yhS2Lx0o6YuS+pa+GBHCUJErJF3K9R6YjhAtTx9Ppg/d+LlLX4wIYSvTz30mnk483kOIliUE6JaezLRw6YsRIXxt/7Nnqr6YTdVoCUK0HH18lPMIScuWvhgROnxP/HH+T+ADCNEy9PEWpjBceY3SFyPSM5JO8pl4YBaEaBkW9TXHm5W+EJFCJ/5cSddlVTVaihCtv8E+jbQdnfgoYSL9dyRdzF5QdIUQrbcBPg+/G0NForzjTnzYUD8po7rRBoRofYW9oFu5Ez9/6YsRIXTi7/L9+q9nUzXahhCtp/DvuraD4EOlL0akR/z++D9ZVY22IUTrJ3TiV/KRzlVLX4xIz3kHw+isqkZbEaL1E548D5a0UekLEWm8pJMl3ZRV1Wg7QrReFnQnfpvSFyJSmEg/yp14IAohWh9zSdpZ0q6+6gPVTPE98aeylQk9QYjWQwjNrSUdIGne0hcj0h98PfSrWVWNZBCi+Qv/hp/ymXiu94jzkKRvSPpXTkUjLYRo/lbzPfErlL4QkZ73DgY68egVQjRvH/UT6DqlL0Sk8R4qcmNWVSNJhGi+FnIn/oulL0Sktz2Z/ns0ktAIhGie5vF5+F1LX4hI03w30rlMp0ejEKL56eunz/29rQnV/VbSKZJeYM3QKIRoXsKRzg3cUV6w9MWI9Hdf7/FoVlUjeYRoXlaXdIyn1KO6Z3y9x59YMzQaIZqPZb0pnE58nFd9Jv7nORWNfBCieVjY70A/X/pCRArDlS+S9ENfeQw0HCGavtA8+j9JO5W+ED1wlaQLJb2RXeXIBiGatr4+E7+/tzWhul9LOo1OPJqNEE3bhn4PunDpCxHpfkknSnosq6qRJUI0XSN9Jn7Z0hci0lPeynRnVlUjW4RompaWdBid+GjjJJ0u6Zcc6USrEKLpGeZ3oFuWvhCRJnky/VXuygMtQYimZaCk3SV9len00X7kwSITMqsbmSNE0xGOdG4v6UBJg0tfjEi3SjpL0tisqkYtEKLp2NTX9S5U+kJE+qs78Y9kVTVqgxBNw+qesr506QsR6QkH6F1ZVY1aIUTb7yPeyrRW6QsR6WV/hf+V54QCbUGIttd8kg6W9Bm/E0U1YTr9ZZKuoROPdiNE22eApL18Jp5OfJxrHKKv5VQ06okQbZ/tOBPfI7/y1/inM6wdNUSItscmkg6nEx9ttG/pfDizulFjhGjrreyhIsuX9oP30hM+0nkPRzqREkK0tYZLOlbSmjSSorwo6RxJv5A0NaO6UQBCtHWGeDP9pjSSorwlaZSPdU7KqG4UghBtjTBceR9JO0gaVMIP3CBTPVAkdOLH1+InQu0Qoq0RwvPrfhpFdTdLOtu3dQJJIkSbb0PPBl2k7j9og90t6UzuiUfqCNHmWtmNJDrxcR51J/4uOvFIHSHaPItLOk7SGn4nimrCxXLn0YlHLgjR5pjXQ0U28fFOVDPB98RfKWkKa4YcEKKN18eDlbelEx8lDBX5gaRLJE3MqG4UjhBtvF0k7c10+ijhqfNGb6h/OaO6AUK0wT7nTjz3xMf5ozvx/8qpaECEaEOt6fegy9ToZ2qFf0g6w9d8ANkhRBtj+nT6/6nDD9NCz3is3S3F/MSoHUK09+bzmfiNGCoS5VU3ka7MqGZgFoRo7wz0YOVt2MoUZaLPxF/I/UjIHSHac/0k7SxpT6bTR5nir+9neV8okDVCtGfm8OVyB9KJjxKeOv8i6WRJT2VUN9ApQjReH98TH96DLptb8W32mO+J/1vRq4BaIUTjLT3DmXhUN9Z7QenEo1YI0TgLSDrUZ+JR3Tifib+CNUPdEKLVzSVpXw9YZipTdW9Kutohylg71A4hWk3YvrSTO/Fz51BwIt7x1/cz6cSjrgjR7oU12kzSQXTio93lRtK/M6sbqIwQ7d5ako7hTHy0hx2gD2RWNxCFEO3aMr7eY7WUi0xQePI8RdLtpS8E6o8Q7dyCkr4h6dOpFpioMA/0fN8TD9QeITp74Rjnfu7Eo7o3vY3p26wZStGPf+lZ9Hcnfl+GikSZLOlnvif+jYzqRmOF7X9DvIulhC1tUwjRDwpHOjeXdLikoSkVloE7/B70+dIXonBhNORuklZxiNY9SN8iRD9oDR/pXDKlojIQOvEn+D9Rtnk9nGedQlahg3ei7wud+CMlrZxKQZl40QF6R+kLgf8Kk7rGFzQn9hVC9F0L+Uz8Z1MoJiMTfUPntaUvBN7T4ffjpYToZEL03TPx+7iZhOrCL8vlki5mzTCTkq7J6VN6iIZO4vYO0TkTqCcnN0g6TdLrpS8EylZ6iG7mDfXzJ1BLTkb7JNdzpS8EUHKIhk78Ub7uGNU95S1gD7FmQLkhuoyfQJlOH2ect4D9LqeigWYqMUQXlXSIN9Wjukk+jXQNawa8r7QQncdNpK9w5DXaZZIudZgCsJJCtK+3Me3lbU2o7gbfEz+ONQM+qKQQ3cLXHA9LoJac3OUTSU+XvhDA7JQSouEc70mShidQS04e9g4GptMDnSghRFfwNRUjEqglJ8/6D88fSl8IoCt1D9FwsdzRktZPoJacvOEbOm+SNLX0xQC6UucQHSjpYElfSKCW3IySdKUn1QPoQp1DdFffE8+Z+DjXS7ogjPjKqWigXeoaolu6ITJvArXk5A6/B+WeeKCiOoboug6ChROoJSePeivTg6UvBBCjbiG6rM92fzyBWnLyHJ14NEgJl9N9QJ1CdKiv91g3gVpyMlbSYZKuDjcXlr4Y6LUJpR0Nrsv58QGeyvRlH+9EdaN9GmlVSYNKfJJAw0zygJ9FSppu36ejI/vfmT4eKnIi1xxHm+b5oC87QPsWdDcOGiv8Hr7j3TBLFNTUfb4OIfolSWdI+lACteRomn8BSroXB2iU53P/Or+23+ctlUAtuSr9ihigV3L+BVrOe0FX4ykKQLvkGqILupG0IU9SANopxwAKL66P8LvQ/gnUA6BguYVo+Nq+r6SdmU4PIAW5heh2kg5kOj2AVOQUohv6RNJiCdQCAP+VS4h+3AG6PJ14ACnJIUSHeyvTOnTiAaQm9VAK98Qf6vmgdOIBJCflEA2nqfaW9FVf9QEAyUk1RPu6E78/Q0UApCzFEJ3Dt3MeQSceQOpSDNEVfc3xCgnUAgBdSi1EF3cn/pNsZQKQg5RCdIikQyRtwVYmALlIJawG+o74r/mqDwDIQgohGrYybe3BIoMTqAcAKmt3iIb///U8nX7xNtcCANHaHaIr+0z8im2uAwB6pJ0hupT3gq7PPx2AXLUrRMMppIMkbcVWJgA5a0eIhvvN9/B0eoaKAMhaq0M0hOaX6cQDqItWhmj42v5pOvEA6qSVITrS1xyP4BMEoC5aFaLLSDrc0+kBgBCNsIDngn6uBf9fANBSzQ7RcDf87pJ2pBMPoI6aGaIhNLeVtA+deAB11awQDZ34zd1IYjo9gNpqVoiu4SOdH+WjA6DOmhGi0zvxa/DJAVB3jQ7RYZIOkPRZPjkAStDIEB04Qye+H58eACVoVIiG/51tvB90Xj45AErRqBDdSNI3JS3CJwdASRoRoqtKOkbSsnxyAJSmtyG6uK/3WJtPDoAS9SZEh3gr0xZ8cgCUqqchGjrxezGdHkDpehKifSVtJ+lgSfOUvoAAytaTEN3YnfgFSl88AIgN0dUlHc+ZeAB4V0yILuWtTCNZOwB4V9UQXcBTmTZl3QDgfVVCdG4PVt5J0gDWDgDe112Ihk789p7MNBfrBgAf1F2IbiLpaElDWTcAmFVXIRrOxJ8oaQnWDQBmr7MQXcoBugrrBgCdm12IDnUnfpMW3UsPANmaOSTnlLSnpK8xnR4AujdjiIZrjrf2NcdzsnYA0L0ZQ3QDSWdIGsy6AUA100P045IukLQY6wYA1YUQHe4AXYF1A4Aoffv5hs6VJb3E2gFABOmF/wdLtDHW6vtnXAAAAABJRU5ErkJggg=="/>
-								  </svg>
+								<img class="topic-svg"src="images/general.png" alt="an image of the sigma symbol to represent the general topic">
 								<span>General</span>
 							</div>
 						</a>
@@ -32,34 +45,7 @@
 					<div>
 						<a href="">
 							<div>
-								<svg version="1.1" id="Livello_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-								 viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
-						   <g id="Livello_3">
-						   </g>
-						   <g>
-							   <path fill="#FFFFFF" d="M49.813,6.688C25.339,6.688,5.5,26.527,5.5,51c0,24.475,19.839,44.313,44.313,44.313
-								   S94.126,75.475,94.126,51C94.125,26.527,74.286,6.688,49.813,6.688z M34.934,46.18c0,12.051-3.117,18.077-9.351,18.077
-								   c-3.237,0-5.651-0.931-7.243-2.794c-1.291-1.499-2.103-3.716-2.436-6.65c-0.156-1.321-0.234-3.96-0.234-7.915
-								   c0-1.457,0.031-2.633,0.094-3.528c0.063-0.947,0.156-1.608,0.281-1.983c0.26-0.759,0.728-1.139,1.405-1.139
-								   c0.958,0,1.437,0.879,1.437,2.638v9.164c0,6.307,2.206,9.46,6.619,9.46c4.152,0,6.229-5.308,6.229-15.923c0-0.396,0-0.906,0-1.53
-								   c-0.011-0.624-0.016-1.041-0.016-1.249c0-0.646,0.114-1.212,0.343-1.702c0.291-0.625,0.723-0.937,1.296-0.937
-								   c1.041,0,1.561,0.713,1.561,2.139c0,0.427,0.005,1.072,0.016,1.936C34.934,45.108,34.934,45.753,34.934,46.18z M57.664,49.661
-								   c-0.813,3.393-1.875,7.228-3.186,11.505c-0.291,0.947-0.775,1.921-1.451,2.92c-0.365,0.551-0.859,0.821-1.483,0.812
-								   c-1.135-0.021-2.02-1.431-2.654-4.23c-0.208-0.896-0.421-2.113-0.64-3.653l-0.515-3.481l-1.28,2.982l-2.373,6.447
-								   c-0.135,0.396-0.333,0.696-0.593,0.905c-0.313,0.604-0.812,0.915-1.499,0.937c-0.791,0.031-1.556-1.52-2.294-4.652
-								   c-0.375-1.613-0.75-3.798-1.124-6.557l-0.375-2.341c-0.135-0.938-0.203-1.723-0.203-2.357c0-0.438,0.153-0.799,0.46-1.085
-								   c0.307-0.286,0.679-0.429,1.116-0.429c0.791,0,1.28,0.432,1.467,1.296c0.135,0.614,0.245,1.374,0.328,2.279l0.234,2.295
-								   l0.921,7.009c1.155-3.205,2.352-6.899,3.591-11.084c0.343-1.155,0.941-1.732,1.795-1.732c0.822,0,1.379,0.646,1.67,1.936
-								   c0.271,1.218,0.609,3.091,1.015,5.62c0.416,2.623,0.785,4.668,1.107,6.135l1.141-4.246l2.014-8.508
-								   c0.156-0.634,0.604-0.952,1.342-0.952c0.438,0,0.816,0.148,1.141,0.445c0.322,0.297,0.482,0.654,0.482,1.07
-								   C57.818,48.995,57.768,49.234,57.664,49.661z M80.361,46.18c0,12.051-3.117,18.077-9.351,18.077c-3.237,0-5.651-0.931-7.244-2.794
-								   c-1.29-1.499-2.103-3.716-2.435-6.65c-0.156-1.321-0.234-3.96-0.234-7.915c0-1.457,0.031-2.633,0.094-3.528
-								   c0.063-0.947,0.156-1.608,0.28-1.983c0.261-0.759,0.729-1.139,1.405-1.139c0.957,0,1.437,0.879,1.437,2.638v9.164
-								   c0,6.307,2.206,9.46,6.619,9.46c4.152,0,6.229-5.308,6.229-15.923c0-0.396,0-0.906,0-1.53c-0.011-0.624-0.016-1.041-0.016-1.249
-								   c0-0.646,0.114-1.212,0.343-1.702c0.292-0.625,0.724-0.937,1.296-0.937c1.041,0,1.562,0.713,1.562,2.139
-								   c0,0.427,0.005,1.072,0.016,1.936C80.361,45.108,80.361,45.753,80.361,46.18z"/>
-						   </g>
-						   </svg>
+								<img class="topic-svg"src="images/anime.svg" alt="a svg image of a uwu to represent the anime community">
 								<span>Anime</span>
 							</div>
 						</a>
@@ -68,13 +54,7 @@
 					<div>
 						<a href="">
 							<div>
-								<svg viewBox="0 0 24 24">
-									<g>
-										<path
-											d="M21.697 16.468c-.02-.016-2.14-1.64-2.103-6.03.02-2.532-.812-4.782-2.347-6.335C15.872 2.71 14.01 1.94 12.005 1.93h-.013c-2.004.01-3.866.78-5.242 2.174-1.534 1.553-2.368 3.802-2.346 6.334.037 4.33-2.02 5.967-2.102 6.03-.26.193-.366.53-.265.838.102.308.39.515.712.515h4.92c.102 2.31 1.997 4.16 4.33 4.16s4.226-1.85 4.327-4.16h4.922c.322 0 .61-.206.71-.514.103-.307-.003-.645-.263-.838zM12 20.478c-1.505 0-2.73-1.177-2.828-2.658h5.656c-.1 1.48-1.323 2.66-2.828 2.66zM4.38 16.32c.74-1.132 1.548-3.028 1.524-5.896-.018-2.16.644-3.982 1.913-5.267C8.91 4.05 10.397 3.437 12 3.43c1.603.008 3.087.62 4.18 1.728 1.27 1.285 1.933 3.106 1.915 5.267-.024 2.868.785 4.765 1.525 5.896H4.38z">
-										</path>
-									</g>
-								</svg>
+								<img class="topic-svg"src="images/confessions.png" alt="a svg image of a priest for the confessions topic">
 								<span>Confessions</span>
 							</div>
 						</a>
@@ -83,42 +63,7 @@
 					<div>
 						<a href="">
 							<div>
-								<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  
-								 viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
-						   <g id="Livello_2">
-							   <path fill="#FFFFFF" d="M15.185,70.058c0.537,1.869-0.543,3.82-2.413,4.357l0,0c-1.87,0.537-3.821-0.546-4.358-2.413L3.097,53.483
-								   c-0.537-1.87,0.543-3.821,2.414-4.357l0,0c1.87-0.537,3.82,0.543,4.357,2.413L15.185,70.058z"/>
-							   <path fill="#FFFFFF" d="M27.344,82.191c0.552,1.926-0.56,3.934-2.484,4.485l0,0c-1.925,0.553-3.933-0.558-4.485-2.483L6.768,36.804
-								   c-0.552-1.925,0.56-3.934,2.484-4.486l0,0c1.925-0.553,3.933,0.56,4.485,2.485L27.344,82.191z"/>
-							   <path fill="#FFFFFF" d="M43.915,57.519c0.505,1.761-0.512,3.596-2.271,4.101l0,0c-1.759,0.505-3.595-0.511-4.101-2.271
-								   l-2.916-10.154c-0.505-1.76,0.511-3.596,2.271-4.101l0,0c1.759-0.505,3.595,0.511,4.1,2.271L43.915,57.519z"/>
-							   <path fill="#FFFFFF" d="M50.026,43.663c-1.621,0.853-3.625,0.23-4.477-1.39l0,0c-0.853-1.62-0.231-3.624,1.39-4.476l9.351-4.92
-								   c1.618-0.852,3.623-0.229,4.477,1.39l0,0c0.852,1.621,0.229,3.625-1.392,4.477L50.026,43.663z"/>
-							   <g>
-								   <path fill="#FFFFFF" d="M44.851,42.887c-0.227,0.016-0.456,0.053-0.684,0.119c-1.76,0.505-2.776,2.341-2.271,4.101l3.702,12.894
-									   c0.506,1.761,2.341,2.777,4.101,2.272c1.76-0.506,2.776-2.341,2.271-4.102l-3.702-12.895c-0.021-0.072-0.057-0.135-0.082-0.204
-									   C46.894,44.987,45.618,44.198,44.851,42.887z"/>
-								   <path fill="#FFFFFF" d="M49.161,45.007c0.001,0.004,0.001,0.009,0.002,0.013l4.059,14.139c0.506,1.761,2.342,2.776,4.101,2.271
-									   c1.76-0.506,2.776-2.341,2.271-4.102l-4.06-14.138c-0.119-0.416-0.317-0.786-0.566-1.108l-5.023,2.644
-									   C49.693,44.858,49.429,44.946,49.161,45.007z"/>
-								   <path fill="#FFFFFF" d="M60.799,38.936c-0.156,0.125-0.317,0.247-0.5,0.343l-3.91,2.057c-0.109,0.515-0.113,1.058,0.042,1.599
-									   l3.702,12.895c0.506,1.761,2.343,2.776,4.102,2.271c1.76-0.506,2.775-2.34,2.271-4.102l-3.703-12.894
-									   C62.504,40.065,61.737,39.295,60.799,38.936z"/>
-							   </g>
-							   <path fill="#FFFFFF" d="M34.396,51.393l-6.771,1.943L21.652,32.53c-0.553-1.926-2.561-3.038-4.485-2.485
-								   c-1.924,0.552-3.037,2.561-2.484,4.486L28.29,81.92c0.553,1.927,2.561,3.037,4.485,2.484c1.924-0.553,3.036-2.56,2.483-4.485
-								   l-5.973-20.804l6.77-1.944L34.396,51.393z"/>
-							   <path fill="#FFFFFF" d="M85.084,29.943c-0.537-1.869,0.544-3.821,2.413-4.358l0,0c1.87-0.537,3.821,0.545,4.357,2.414l5.317,18.518
-								   c0.537,1.871-0.543,3.821-2.414,4.358l0,0c-1.868,0.537-3.82-0.543-4.356-2.414L85.084,29.943z"/>
-							   <path fill="#FFFFFF" d="M72.926,17.809c-0.554-1.926,0.56-3.934,2.483-4.486l0,0c1.925-0.552,3.933,0.56,4.485,2.485L93.5,63.197
-								   c0.554,1.926-0.559,3.933-2.483,4.485l0,0c-1.924,0.553-3.932-0.56-4.485-2.484L72.926,17.809z"/>
-							   <path fill="#FFFFFF" d="M67.494,15.596c-1.925,0.552-3.035,2.56-2.483,4.485l5.974,20.805l-6.771,1.944l1.66,5.778l6.771-1.944
-								   l5.974,20.806c0.553,1.925,2.561,3.037,4.484,2.484s3.037-2.56,2.484-4.485L71.979,18.08
-								   C71.427,16.155,69.419,15.043,67.494,15.596z"/>
-						   </g>
-						   <g id="Livello_3">
-						   </g>
-						   </svg>
+								<img class="topic-svg"src="images/fitness.svg" alt="a svg image of a dumbell for the fitness topic">
 								<span>Fitness</span>
 							</div>
 						</a>
@@ -127,32 +72,7 @@
 					<div>
 						<a href="">
 							<div>
-								<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" 
-								 viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
-						   <g id="Livello_3">
-							   <path fill="#FFFFFF" d="M33.396,106.269c0,0,3.478-9.7,10.066-16.471c2.746-4.758,4.576-8.418,4.576-8.418
-								   s3.112-15.19,1.647-17.021c-1.465-1.83-5.674-8.785-5.857-10.249c-0.183-1.464-4.758-5.857-4.393-9.334
-								   c-4.208,1.465-12.628,1.28-23.06-5.49c-7.137-0.915-4.209-1.464-4.209-1.464s-2.288-1.465-0.595-4.027
-								   c0.046-4.026,1.144-9.15,6.634-14.458c5.308-6.222,7.87-10.25,7.87-10.25l5.856-1.098h5.125c0,0,1.099,0.184,2.563,0.732
-								   c1.464,0.549,2.928,5.491,2.928,5.491l-2.013,2.379l-3.843-0.549l-3.569,0.183c0,0-1.83-0.641-2.104-1.922
-								   c-2.013,1.556-4.026,4.483-4.392,5.399c-0.366,0.915-1.19,2.104-0.916,4.118s-0.091,4.851-0.458,5.308
-								   c1.465,0.732,1.465,0.092,1.465,0.092s4.576-2.836,9.608,0.549c1.373,0.915,2.379-0.824,2.379-0.824s8.51-4.758,13.909,1.922
-								   c0.732,1.373,2.105,0.366,2.746-0.458c0.64-0.824,3.02-2.013,3.02-2.013v-2.104c0,0-1.464-1.83-0.55-4.484
-								   c0.916-2.654,0.184-1.922,0.184-1.922l-0.731-1.831c0,0-0.458-3.935-0.185-4.118c0.275-0.183,0.916-0.366,0.916-0.366
-								   s-0.185-5.033,1.372-7.138c1.556-2.105,3.479-3.752,7.23-3.478c3.75,0.274,7.687,1.282,8.326,5.308
-								   c0.641,4.026-0.915,6.497-0.915,6.497s0.64-0.184,0.458,0.823c-0.183,1.007-0.275,2.105-0.275,2.105l-0.64,1.83l-1.008,1.373
-								   c0,0,0.641,2.47,0.185,3.569c-0.457,1.098-1.648,1.831-1.648,1.831s-1.188,3.202,4.576,5.673c4.025,2.013,3.569,2.471,3.569,2.471
-								   s1.83,0.274,2.653,0.915c0.823,0.64,2.838-0.824,7.687,3.66c3.387,3.203,2.471,7.32,2.471,7.687s-0.731,1.464,1.373,4.118
-								   c2.104,2.653,3.203,7.139,3.294,8.327c0.092,1.189,1.099,3.751,1.099,3.751s0.366,2.746,0,3.203c0,0,0.274,3.941-3.02,5.083
-								   c-1.922-0.231-2.746-0.599-2.746-0.599s-6.314,0.367-7.504-0.092c-1.189-0.458-6.496-3.11-6.496-3.11s-2.013,4.94-2.196,6.863
-								   c-0.184,1.921,0.457,4.117,0.457,4.117S75.857,79,75.857,79.823s1.281,4.209,1.372,6.131c0.091,1.921,0.822,6.772,0.731,7.87
-								   s1.1,1.647,0.459,1.922c-0.642,0.274-0.459,0.549-0.184,1.098c0.274,0.55,0.547,1.189,0.365,1.464s0.823,6.496,0.458,7.961
-								   c-0.366,1.466-19.308,0-19.308,0s-1.373-4.758-1.557-5.581c-0.914,3.294-2.928,5.876-3.385,6.232
-								   C54.353,107.275,33.396,106.269,33.396,106.269z"/>
-						   </g>
-						   <g id="Livello_2">
-						   </g>
-						   </svg>
+								<img class="topic-svg"src="images/grindset.svg" alt="a svg image of a chad flexing for the grindset topic">
 								<span>Grindset</span>
 							</div>
 						</a>
@@ -161,25 +81,7 @@
 					<div>
 						<a href="">
 							<div>
-								<svg version="1.1" id="Livello_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-								 viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
-						   <path fill="#FFFFFF" d="M81.823,86.856c2.831-1.617,2.848-4.313,1.761-4.987s-0.952-3.909-3.378-3.774
-							   c-1.349-3.64-3.505-10.649-4.719-13.48c-1.213-2.831-3.774-6.066-4.044-7.684c-0.27-1.618-1.482-16.446-5.122-22.242
-							   c-3.101-4.179-4.718-3.91-7.549-3.91s-6.444-2.665-6.875-3.504c-0.397-0.774-0.27-1.887-0.27-1.887c0,0,0.379,0.013,0.935-0.95
-							   c0.728-1.259,0.713-1.116,1.188-3.172c0.004-0.017,0.576-2.522,0.577-2.541c0.141-0.114,0.327-0.515,0.578-1.444
-							   c0.772-2.862-0.171-3.418-0.42-3.513C54.382,8.976,53.181,2.969,46.91,2.875c-7.776-0.116-8.357,7.26-8.368,11.292
-							   c-0.305,0.173-1.032,0.877-0.201,3.496c0.243,0.766,0.426,1.166,0.565,1.342c0.309,1.743,0.784,3.616,1.282,4.87
-							   c0.453,1.14,0.766,0.9,1.33,1.512c0,0,0.135,4.179-6.335,6.47c-6.471,2.292-8.223,2.426-9.706,10.649
-							   c-1.483,8.223-0.27,10.784-0.944,12.94c-0.674,2.157-0.135,4.314-1.213,6.471c-1.078,2.157-2.696,5.662-3.235,10.11
-							   c-0.54,4.448-2.157,6.875-2.157,6.875s-2.022,0.674-2.696,2.831c-0.674,2.156-2.292,4.179-1.483,4.987
-							   c0.809,0.809,3.505,0.674,3.505,0.674s-6.201,8.223,6.201,10.784c12.401,2.562,16.311-4.718,25.612-3.774
-							   c9.301,0.943,21.298,7.818,31.004,3.101C84.924,94.405,83.98,88.069,81.823,86.856z M36.261,65.558
-							   c-0.405,1.888-2.696,2.292-3.505,3.774c-0.809,1.483-2.292,7.01-3.235,8.224c-0.944,1.213-4.449,2.965-5.392,3.1
-							   c0,0-0.135-1.617,1.618-3.505c1.752-1.887,4.448-7.818,4.313-10.648c1.213-3.235,3.37-10.649,3.235-12.133
-							   C35.586,55.447,36.665,63.671,36.261,65.558z M69.414,77.667c-1.149-1.181-3.629-7.028-4.696-8.53
-							   c-1.07-1.502-3.393-1.567-4.139-3.583c-0.748-2.012-1.216-11.256,0.831-12.824c0.144,1.659,3.635,9.476,5.425,12.842
-							   c0.394,3.143,4.138,9.236,6.206,11.028c2.07,1.791,2.238,3.597,2.238,3.597C74.328,80.204,70.566,78.85,69.414,77.667z"/>
-						   </svg>
+								<img class="topic-svg"src="images/meditation.svg" alt="a svg image of a monk meditating for meditation topic">
 								<span>Meditation</span>
 							</div>
 						</a>
@@ -188,29 +90,7 @@
 					<div>
 						<a href="">
 							<div>
-								<svg version="1.1" id="Livello_3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-								 viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
-						   <path fill="#FFFFFF" d="M89.354,6.105c0.476-1.292-0.187-2.726-1.479-3.201c-1.292-0.477-2.727,0.186-3.2,1.479l-0.217,0.585
-							   l4.683,1.722L89.354,6.105z"/>
-						   <polygon fill="#FFFFFF" points="71.014,41.516 75.693,43.238 70.652,49.719 "/>
-						   <rect x="83.981" y="6.167" transform="matrix(0.9386 0.345 -0.345 0.9386 7.6245 -29.4256)" fill="#FFFFFF" width="4.987" height="1.078"/>
-						   <rect x="77.356" y="6.499" transform="matrix(0.9386 0.345 -0.345 0.9386 13.4292 -26.031)" fill="#FFFFFF" width="4.989" height="36.431"/>
-						   <path fill="#FFFFFF" d="M98.669,41.362c-1.899-3.56-7.351-3.75-8.233-3.763v-9.075c0-0.657-0.461-1.224-1.104-1.357
-							   c-2.259-0.467-4.492-0.763-6.672-0.896l-6.152,16.734l-6.424,8.259l0.46-10.453l0.051,0.019l5.302-14.419
-							   C62.037,27.894,54.199,36.43,51.18,40.549c-0.389,0.531-0.698,51.425-0.93,51.784c-0.226-0.351-0.525-51.23-0.901-51.745
-							   c-3.289-4.501-12.405-14.403-28.957-14.403c-2.97,0-6.073,0.331-9.223,0.982c-0.644,0.133-1.105,0.7-1.105,1.357v9.075
-							   c-0.876,0.015-6.337,0.21-8.232,3.763c-0.054,0.1-0.082,0.212-0.082,0.326v53.351c0,0.248,0.134,0.479,0.351,0.602
-							   c0.106,0.063,0.224,0.092,0.342,0.092c0.123,0,0.245-0.031,0.354-0.099c0.161-0.098,16.483-9.499,46.57-0.903
-							   c0.298,0.09,0.604-0.047,0.765-0.299c0.039-0.019,0.081-0.029,0.118-0.051c0.037,0.021,0.079,0.032,0.116,0.051
-							   c0.159,0.252,0.46,0.389,0.768,0.299c30.024-8.58,46.408,0.811,46.57,0.903c0.108,0.065,0.229,0.099,0.354,0.099
-							   c0.115,0,0.234-0.03,0.342-0.092c0.217-0.123,0.351-0.354,0.351-0.602V41.688C98.75,41.575,98.723,41.462,98.669,41.362z
-								M11.571,85.522c-1.158,0.195-2.603-0.741-2.529-1.867V39.167C9.276,39.065,9.66,39,10.065,38.983v44.044
-							   c0,0.402,0.175,0.785,0.479,1.05c0.253,0.22,0.576,0.337,0.906,0.337c0.067,0,0.134-0.005,0.2-0.016
-							   c0.044-0.006,4.428-0.635,10.161-0.635c9.385,0,21.286,1.619,25.936,9.088C41.734,84.396,19.671,84.155,11.571,85.522z
-								M91.754,83.218c0.073,1.126-1.372,2.063-2.529,1.867c-8.101-1.367-30.163-1.126-36.176,7.329
-							   c4.649-7.469,16.552-9.088,25.937-9.088c5.732,0,10.117,0.629,10.16,0.635c0.066,0.011,0.133,0.016,0.2,0.016
-							   c0.33,0,0.653-0.117,0.906-0.337c0.304-0.265,0.479-0.647,0.479-1.05V38.545c0.404,0.018,0.789,0.083,1.022,0.184V83.218z"/>
-						   </svg>
+								<img class="topic-svg"src="images/journaling.svg" alt="a svg image of a book for journaling topic">
 								<span>Journaling</span>
 							</div>
 						</a>
@@ -219,16 +99,7 @@
 					<div>
 						<a href="">
 							<div>
-								<svg version="1.1" id="Livello_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-								viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
-						   <g>
-							   <path fill="#FFFFFF" d="M43.293,29.723l14.088,28.585l5.911-10.707h28.794c1.639-4.322,2.332-8.917,2.539-14.352
-								   C95.125,20.125,87.443,10.609,73,9.375c-14.625-1.25-23,12.75-23,12.75s-8.375-14-23-12.75C12.556,10.609,4.875,20.125,5.375,33.25
-								   c0.207,5.435,0.901,10.03,2.54,14.352h27.514L43.293,29.723z"/>
-							   <path fill="#FFFFFF" d="M57.156,67.941L43.522,40.277l-5.184,11.784H9.994C12.518,56.533,16.32,60.912,22,65.875
-								   C34.875,77.125,50,90.75,50,90.75s15.125-13.625,28-24.875c5.68-4.963,9.482-9.342,12.006-13.813H65.925L57.156,67.941z"/>
-						   </g>
-						   </svg>
+								<img class="topic-svg"src="images/wellbeing.svg" alt="a svg image of a healthy heart for well-being topic">
 								<span>Well-being</span>
 							</div>
 						</a>
@@ -286,7 +157,7 @@
 							</div>
 							<!-- Gif File Icon -->
 							<div>
-								<svg viewBox="0 0 24 24" aria-hidden="true">
+								<svg id="gif-icon" viewBox="0 0 24 24" aria-hidden="true">
 									<g>
 										<path
 											d="M19 10.5V8.8h-4.4v6.4h1.7v-2h2v-1.7h-2v-1H19zm-7.3-1.7h1.7v6.4h-1.7V8.8zm-3.6 1.6c.4 0 .9.2 1.2.5l1.2-1C9.9 9.2 9 8.8 8.1 8.8c-1.8 0-3.2 1.4-3.2 3.2s1.4 3.2 3.2 3.2c1 0 1.8-.4 2.4-1.1v-2.5H7.7v1.2h1.2v.6c-.2.1-.5.2-.8.2-.9 0-1.6-.7-1.6-1.6 0-.8.7-1.6 1.6-1.6z">
@@ -326,7 +197,7 @@
 				<div class="right-column">
 					<article class="top-row">
 						<header class="post-header">
-							<div>
+							<div class="BRUH">
 								<strong>
 									<span>Anonymous Chad</span>
 								</strong>
@@ -334,15 +205,10 @@
 								<span class="time">30m</span>
 							</div>
 							<div class="details">
-								<svg viewBox="0 0 24 24" aria-hidden="true">
-									<g>
-										<circle cx="5" cy="12" r="2"></circle>
-										<circle cx="12" cy="12" r="2"></circle>
-										<circle cx="19" cy="12" r="2"></circle>
-									</g>
-								</svg>
+								<img src="images/closereplies.svg" alt="close button" class="close-svg">
 							</div>
 						</header>
+
 						<p>bro like said, it's a society of jeffreys and everyone's living on copium... i myself used to
 							play games and just think about it, when you've been alive in this shitty world for like
 							40years and seen how times changed, pandemics happened, people's loosing jobs, homes, prices
@@ -354,7 +220,7 @@
 						<!-- Comment Button -->
 						<div>
 							<div>
-								<svg viewBox="0 0 24 24" aria-hidden="true">
+								<svg class="view-comments" flexDirection viewBox="0 0 24 24" aria-hidden="true">
 									<g>
 										<path
 											d="M14.046 2.242l-4.148-.01h-.002c-4.374 0-7.8 3.427-7.8 7.802 0 4.098 3.186 7.206 7.465 7.37v3.828c0 .108.044.286.12.403.142.225.384.347.632.347.138 0 .277-.038.402-.118.264-.168 6.473-4.14 8.088-5.506 1.902-1.61 3.04-3.97 3.043-6.312v-.017c-.006-4.367-3.43-7.787-7.8-7.788zm3.787 12.972c-1.134.96-4.862 3.405-6.772 4.643V16.67c0-.414-.335-.75-.75-.75h-.396c-3.66 0-6.318-2.476-6.318-5.886 0-3.534 2.768-6.302 6.3-6.302l4.147.01h.002c3.532 0 6.3 2.766 6.302 6.296-.003 1.91-.942 3.844-2.514 5.176z">
@@ -408,20 +274,75 @@
 					</div>
 				</div>
 			</div>
-			<div class="post">
+			<div class="post-reply">
 				<div class="left-column">
-					<img class="profile-image"
-						src="images/anonymousChad.jpg">
+					<img class="profile-image" src="images/anonymousChad.jpg">
+				</div>
+				<div class="right-column">
+					<form class="top-row">
+						<input placeholder="Speak Your Mind Chad">
+					</form>
+					<div class="bottom-row">
+						<div class="buttons">
+							<!-- Upload Picture Icon -->
+							<div>
+								<svg viewBox="0 0 24 24" aria-hidden="true">
+									<g>
+										<path
+											d="M19.75 2H4.25C3.01 2 2 3.01 2 4.25v15.5C2 20.99 3.01 22 4.25 22h15.5c1.24 0 2.25-1.01 2.25-2.25V4.25C22 3.01 20.99 2 19.75 2zM4.25 3.5h15.5c.413 0 .75.337.75.75v9.676l-3.858-3.858c-.14-.14-.33-.22-.53-.22h-.003c-.2 0-.393.08-.532.224l-4.317 4.384-1.813-1.806c-.14-.14-.33-.22-.53-.22-.193-.03-.395.08-.535.227L3.5 17.642V4.25c0-.413.337-.75.75-.75zm-.744 16.28l5.418-5.534 6.282 6.254H4.25c-.402 0-.727-.322-.744-.72zm16.244.72h-2.42l-5.007-4.987 3.792-3.85 4.385 4.384v3.703c0 .413-.337.75-.75.75z">
+										</path>
+										<circle cx="8.868" cy="8.309" r="1.542"></circle>
+									</g>
+								</svg>
+							</div>
+							<!-- Gif File Icon -->
+							<div>
+								<svg id="gif-icon" viewBox="0 0 24 24" aria-hidden="true">
+									<g>
+										<path
+											d="M19 10.5V8.8h-4.4v6.4h1.7v-2h2v-1.7h-2v-1H19zm-7.3-1.7h1.7v6.4h-1.7V8.8zm-3.6 1.6c.4 0 .9.2 1.2.5l1.2-1C9.9 9.2 9 8.8 8.1 8.8c-1.8 0-3.2 1.4-3.2 3.2s1.4 3.2 3.2 3.2c1 0 1.8-.4 2.4-1.1v-2.5H7.7v1.2h1.2v.6c-.2.1-.5.2-.8.2-.9 0-1.6-.7-1.6-1.6 0-.8.7-1.6 1.6-1.6z">
+										</path>
+										<path
+											d="M20.5 2.02h-17c-1.24 0-2.25 1.007-2.25 2.247v15.507c0 1.238 1.01 2.246 2.25 2.246h17c1.24 0 2.25-1.008 2.25-2.246V4.267c0-1.24-1.01-2.247-2.25-2.247zm.75 17.754c0 .41-.336.746-.75.746h-17c-.414 0-.75-.336-.75-.746V4.267c0-.412.336-.747.75-.747h17c.414 0 .75.335.75.747v15.507z">
+										</path>
+									</g>
+								</svg>
+							</div>
+							<!-- Emoji Icon -->
+							<div>
+								<svg viewBox="0 0 24 24" aria-hidden="true">
+									<g>
+										<path
+											d="M12 22.75C6.072 22.75 1.25 17.928 1.25 12S6.072 1.25 12 1.25 22.75 6.072 22.75 12 17.928 22.75 12 22.75zm0-20C6.9 2.75 2.75 6.9 2.75 12S6.9 21.25 12 21.25s9.25-4.15 9.25-9.25S17.1 2.75 12 2.75z">
+										</path>
+										<path
+											d="M12 17.115c-1.892 0-3.633-.95-4.656-2.544-.224-.348-.123-.81.226-1.035.348-.226.812-.124 1.036.226.747 1.162 2.016 1.855 3.395 1.855s2.648-.693 3.396-1.854c.224-.35.688-.45 1.036-.225.35.224.45.688.226 1.036-1.025 1.594-2.766 2.545-4.658 2.545z">
+										</path>
+										<circle cx="14.738" cy="9.458" r="1.478"></circle>
+										<circle cx="9.262" cy="9.458" r="1.478">
+										</circle>
+									</g>
+								</svg>
+							</div>
+						</div>
+						<!-- Post Button -->
+						<button class="tweet-btn">Post</button>
+					</div>
+				</div>
+			</div>
+			<div class="replies">
+				<div class="left-column">
+					<img class="profile-image" src="images/anonymousChad.jpg">
 				</div>
 				<div class="right-column">
 					<article class="top-row">
 						<header class="post-header">
-							<div>
+							<div class="BRUH">
 								<strong>
 									<span>Anonymous Chad</span>
 								</strong>
 								<span class="dot">.</span>
-								<span class="time">1h</span>
+								<span class="time">30m</span>
 							</div>
 							<div class="details">
 								<svg viewBox="0 0 24 24" aria-hidden="true">
@@ -433,24 +354,11 @@
 								</svg>
 							</div>
 						</header>
-						<p>Hi all, do you have any tips for daydreaming? I've noticed that even during my short meditation sessions i have tendency to daydreaming alternate realities. I know its my coping mechanism related to anxiety etc. Today I've realised that I dont have adhd (many my friends and ex make me believe that i have ADHD) and i always had problems with concentration because of the daydreaming (problems with focusing on work, not listening to others, "switching off" during standard activities). Even in childhood i had tendency to create my own world inside my head. maybe is it some form of autism ?</p>
-						<img src="images/gigachad.jpg" alt="Chad"
-							style="width:100%; border-radius:25px; border:1px solid var(--border-color); margin-top:10px;">
+
+						<p>bro you are so dumb
+						</p>
 					</article>
 					<div class="bottom-row">
-						<!-- Comment Button -->
-						<div>
-							<div>
-								<svg viewBox="0 0 24 24" aria-hidden="true">
-									<g>
-										<path
-											d="M14.046 2.242l-4.148-.01h-.002c-4.374 0-7.8 3.427-7.8 7.802 0 4.098 3.186 7.206 7.465 7.37v3.828c0 .108.044.286.12.403.142.225.384.347.632.347.138 0 .277-.038.402-.118.264-.168 6.473-4.14 8.088-5.506 1.902-1.61 3.04-3.97 3.043-6.312v-.017c-.006-4.367-3.43-7.787-7.8-7.788zm3.787 12.972c-1.134.96-4.862 3.405-6.772 4.643V16.67c0-.414-.335-.75-.75-.75h-.396c-3.66 0-6.318-2.476-6.318-5.886 0-3.534 2.768-6.302 6.3-6.302l4.147.01h.002c3.532 0 6.3 2.766 6.302 6.296-.003 1.91-.942 3.844-2.514 5.176z">
-										</path>
-									</g>
-								</svg>
-							</div>
-							<span>32</span>
-						</div>
 						<!-- Retweet Button -->
 						<div>
 							<div>
@@ -462,7 +370,7 @@
 									</g>
 								</svg>
 							</div>
-							<span>16</span>
+							<span>32</span>
 						</div>
 						<!-- Like Button -->
 						<div>
@@ -475,7 +383,7 @@
 									</g>
 								</svg>
 							</div>
-							<span>212</span>
+							<span>382</span>
 						</div>
 						<!-- Share Button -->
 						<div>
@@ -505,7 +413,7 @@
 						</path>
 					</g>
 				</svg>
-				<input class="search" placeholder="Twitter'da Ara">
+				<input class="search" placeholder="Search for a Post">
 			</div>
 			<div class="trends">
 				<header class="trends-header">
