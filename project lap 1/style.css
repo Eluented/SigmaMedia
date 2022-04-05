@@ -320,6 +320,7 @@ img {
 	margin-top:-6px;
 }
 .details {
+	display: none;
 	cursor:pointer;
 	padding:6px;
 	border-radius:100%;

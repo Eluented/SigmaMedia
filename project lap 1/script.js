@@ -32,6 +32,7 @@ document.querySelector('.view-comments').addEventListener('click', () => {
 document.querySelector('.details').addEventListener('click', () => {
     document.querySelector('.replies').style.display = 'none';
     document.querySelector('.post-reply').style.display = 'none';
+    document.querySelector('.details').style.display = 'none';
 })
 
 // giphy api
