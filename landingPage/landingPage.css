@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Serif&display=swap');
+
+body {
+    background: grey url("images/background.png") no-repeat fixed center;
+    background-size: cover;
+}
+
+/*whole container for the landing elements*/
+#landContainer {
+    position: relative;
+    width: auto;
+    min-height: 700px;
+    opacity: 1;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 1.5s;
+}
+
+/*animation*/
+@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/*gigaChad on the fron*/
+#chadRender {
+    width: 30%;
+    min-width: 400px;
+    position: absolute;
+    bottom: 0%;
+    right: 20%
+}
+
+/*the main title*/
+#headerSigma {
+    font-family: Roboto Serif;
+    font-size: calc(40px + 2vw);
+    position: absolute;
+    top: 10%;
+    right: 20%;
+    text-align: right;
+}
+
+/*the text describing the website*/
+#landingText {
+    font-family: Roboto Serif;
+    font-size: calc(20px + 2vw);
+    position: absolute;
+    bottom: 10%;
+    left: 30%;
+    text-shadow: 0px 0px 5px #FFFFFF;
+}
+
+/*second section that divides to the second part*/
+#btnBand {
+    background: #464646 url("images/comfyChad.png") no-repeat left;
+    background-size: contain;
+    width: 100%;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 1.5s;
+}
+
+/*the button in the divide section*/
+#btnCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+/*animation button*/
+.btnAnm span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.btnAnm span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.btnAnm:hover span {
+    padding-right: 25px;
+}
+
+.btnAnm:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+/*container for the second part*/
+#gifCrsl {
+    width: auto;
+    height: 700px;
+}
