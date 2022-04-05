@@ -61,8 +61,8 @@ We used a Kanban Board and Adobe Illustrator to plan our our first moves and des
 * Working with 4 people simulaltenously working on the same repository using different branches
 * Getting the Users Online section working
 ### Issues with Putting Emojis in the Input
-* ![alt text](https://i.imgur.com/C8piBPa.png)
-
+![alt text](https://i.imgur.com/C8piBPa.png)
+We gave up using this since it conflicted with our backend
 ### Bugs :trollface:
 
 ### Future Features :dragon_face:
