@@ -32,9 +32,19 @@ body {
 #chadRender {
     width: 30%;
     min-width: 400px;
+    max-width: 500px;
     position: absolute;
     bottom: 0%;
     right: 20%
+}
+/*lady chad render*/
+#ladyRender {
+    width: 30%;
+    min-width: 400px;
+    max-width: 500px;
+    position: absolute;
+    bottom: 0%;
+    left: 5%
 }
 
 /*the main title*/
