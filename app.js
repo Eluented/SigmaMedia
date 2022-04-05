@@ -1,4 +1,4 @@
-const axios = require('axios')
+const axios = require('axios');
 const jsonfile = require('jsonfile');
 const express = require('express');
 const cors = require('cors');
@@ -128,9 +128,44 @@ function previousPosts(topic, socket) {
                 switch (topic) {
                     case "anime":
                         allPosts['AllPosts'][1]['animePosts'].forEach(post => {
-                            const postHTML = formatPostHTML(post);
-                            socket.emit('updatePosts', postHTML);
+                            if (post.postNum !== 0){
+                                const postHTML = formatPostHTML(post);
+                                socket.emit('updatePosts', postHTML);
+                            }
                         })
+                        break
+                    case "confessions":
+                        allPosts['AllPosts'][2]['confessionPosts'].forEach(post => {
+                            if (post.postNum !== 0){
+                                const postHTML = formatPostHTML(post);
+                                socket.emit('updatePosts', postHTML);
+                            }
+                        })
+                        break
+                    case "fitness":
+                        allPosts['AllPosts'][3]['fitnessPosts'].forEach(post => {
+                            if (post.postNum !== 0){
+                                const postHTML = formatPostHTML(post);
+                                socket.emit('updatePosts', postHTML);
+                            }
+                        })
+                        break
+                    case "grindset":
+                        allPosts['AllPosts'][4]['grindsetPosts'].forEach(post => {
+                            if (post.postNum !== 0){
+                                const postHTML = formatPostHTML(post);
+                                socket.emit('updatePosts', postHTML);
+                            }
+                        })
+                        break
+                    case "wellbeing":
+                        allPosts['AllPosts'][7]['wellbeingPosts'].forEach(post => {
+                            if (post.postNum !== 0){
+                                const postHTML = formatPostHTML(post);
+                                socket.emit('updatePosts', postHTML);
+                            }
+                        })
+                        break
                 }
             } catch (error) {
                 console.log(error);
