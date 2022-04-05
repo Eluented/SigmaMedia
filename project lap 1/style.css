@@ -141,7 +141,7 @@ img {
 	border:none;
 	background-color:var(--main-color);
 	border-radius:30px;
-	color:inherit;
+	color:rgb(229, 227, 254);
 	margin:16px 0;
 }
 .left-side .right-column {

@@ -14,7 +14,7 @@ let usersOnline = 0;
 
 app.use(cors());
 app.use(express.json())
-app.use(express.static('public'));
+app.use(express.static('public')); 
 app.set('view engine', 'ejs');
 
 io.on('connection', (socket) => {
