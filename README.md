@@ -63,6 +63,7 @@ We used a Kanban Board and Adobe Illustrator to plan our our first moves and des
 ### Issues with Putting Emojis in the Input
 ![alt text](https://i.imgur.com/C8piBPa.png)
 We gave up using this since it conflicted with our backend
+
 ### Bugs :trollface:
 
 ### Future Features :dragon_face:
