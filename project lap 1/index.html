@@ -8,10 +8,8 @@
 	<script defer src="script.js"></script>
 	<link rel="stylesheet" href="style.css">
 	<!-- JQuery -->
-	<script
-        src="https://code.jquery.com/jquery-3.3.1.js"
-        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-        crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"
+		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 </head>
 </head>
 
@@ -22,7 +20,7 @@
 			<div class="top-popup">
 				<form id="searchForm" onsubmit="event.preventDefault();">
 					<div class="close">+</div>
-					<input id="searchInput" type="text" class="form-control" placeholder="Search for gifs Chad" 
+					<input id="searchInput" type="text" class="form-control" placeholder="Search for gifs Chad"
 						aria-label="Recipient's username" aria-describedby="button-addon2">
 				</form>
 
@@ -250,21 +248,38 @@
 									</g>
 								</svg>
 							</div>
-							<span>165</span>
+							<span class="comments-count">165</span>
 						</div>
-						<!-- Retweet Button -->
-						<div>
-							<div>
-								<svg viewBox="0 0 24 24" aria-hidden="true">
-									<g>
-										<path
-											d="M23.77 15.67c-.292-.293-.767-.293-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z">
-										</path>
-									</g>
-								</svg>
+						<!--emoji box start-->
+						<div class="reaction-capsule">
+							<div class="emojiContainer">
+								<div class="reactBox">
+									<a href="#" class="reactBtn">React</a>
+									<div class="emoji">
+										<div class="reacts">
+											<div class="holder"></div>
+										</div>
+										<div class="reacts">
+											<p>Giga Chad<br>Approved</p>
+											<img src="emoji/emojiChad.gif" alt="">
+										</div>
+										<div class="reacts">
+											<p>I feel you<br>Bro</p>
+											<img src="emoji/emojiFeelYou.gif" alt="">
+										</div>
+										<div class="reacts">
+											<p>That's sus<br>Bro</p>
+											<img src="emoji/emojiAnon.gif" alt="">
+										</div>
+										<div class="reacts">
+											<p>You made<br>my day</p>
+											<img src="emoji/emojiYesBro.gif" alt="">
+										</div>
+									</div>
+								</div>
 							</div>
-							<span>32</span>
 						</div>
+						<!--end of emoji box-->
 						<!-- Like Button -->
 						<div>
 							<div>
