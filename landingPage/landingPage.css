@@ -32,9 +32,19 @@ body {
 #chadRender {
     width: 30%;
     min-width: 400px;
+    max-width: 500px;
     position: absolute;
     bottom: 0%;
     right: 20%
+}
+/*lady chad render*/
+#ladyRender {
+    width: 30%;
+    min-width: 400px;
+    max-width: 500px;
+    position: absolute;
+    bottom: 0%;
+    left: 5%
 }
 
 /*the main title*/
@@ -43,7 +53,7 @@ body {
     font-size: calc(40px + 2vw);
     position: absolute;
     top: 10%;
-    right: 20%;
+    right: 10%;
     text-align: right;
 }
 
@@ -107,3 +117,22 @@ body {
     width: auto;
     height: 700px;
 }
+
+#logo {
+    height: 100px;
+    width: 200px;
+    position:fixed; 
+	top:0; 
+	left:0; 
+    margin-left: 0.6vw;
+}
+
+.sigma-media {
+    max-width: 100%;
+    max-height: 100%;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 1.5s;
+}
+

@@ -1,5 +1,5 @@
 # :fire: Sigma-Media :fire:
-Lap 1 Project with our amazing group: Direm, Jianli, Michael and Onur! We decided to create an anonymous social media website aimed at a specific demographic of people who are obsessed with self-improvement and helping others! :clap:
+Lap 1 Project with our amazing group: Diren, Jianli, Michael and Onur! We decided to create an anonymous social media website aimed at a specific demographic of people who are obsessed with self-improvement and helping others! :clap:
 
 ## Project Brief :thought_balloon:
 * You will be working in small teams to create a community journaling website.

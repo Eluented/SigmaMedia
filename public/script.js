@@ -1,6 +1,11 @@
 import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 const socket = io();
+// Set Topic titles
+document.querySelector('title').textContent = `Σ - ${window.location.href.toString().split('/').at(-1).charAt(0).toUpperCase() + window.location.href.toString().split('/').at(-1).slice(1)}`
+document.querySelector('#topic').textContent = `${window.location.href.toString().split('/').at(-1).charAt(0).toUpperCase() + window.location.href.toString().split('/').at(-1).slice(1)}`
+
 const searchSelector = document.querySelector('.search');
+let commentMode = false;
 
 socket.on('connect', () => {
     socket.on('newUser', (userAmount) => {
@@ -12,16 +17,18 @@ socket.on('connect', () => {
             updatePosts(postData[0])
         }
     });
+    socket.on('populateGifs', populateGifs);
 });
 
 function sendPost(e) {
     e.preventDefault();
-    console.log(e.target.posttext.value)
     if (e.target.posttext.value && e.target.posttext.value !== undefined) {
+        document.getElementById('postplaceholder').style.display = 'none';
         const postData = {
             postText: e.target.posttext.value,
             postUser: socket.id,
-            postTopic: window.location.href.toString().split('/').at(-1)
+            postTopic: window.location.href.toString().split('/').at(-1),
+            postImg: e.target.postplaceholder.src
         };
 
         const options = {
@@ -51,16 +58,63 @@ function updatePosts(postHTML) {
     document.querySelector('#postfeed').insertAdjacentHTML("afterbegin", postHTML);
 
     // pressing comments svg - opens an option to comment and an option to see replies - and also shows close svg
-    document.querySelector('.view-comments').addEventListener('click', () => {
+    document.querySelector('.view-comments').addEventListener('click', (e) => {
+        const originPost = e.target.closest('.post');
         document.querySelector('.replies').style.display = 'flex';
         document.querySelector('.post-reply').style.display = 'flex';
-        document.querySelector('.details').style.display = 'flex';
+        document.querySelector('.tweet').style.display = 'none';
+        
+        // Hide all the posts
+        document.querySelectorAll('.post').forEach(post => post.style.display = 'none');
+        
+        // Show the target post
+        originPost.style.display = "flex";
+        originPost.style.borderBottom = 'none';
+        originPost.querySelector('.details').style.display = 'flex';
+        originPost.querySelector('.view-comments').style.display = 'none';
+        originPost.querySelector('.comments-count').style.display = 'none';
     })
+
+    // close replies button
+    document.querySelector('.details').addEventListener('click', (e) => {
+        const originPost = e.target.closest('.post');
+        document.querySelector('.replies').style.display = 'none';
+        document.querySelector('.post-reply').style.display = 'none';
+        originPost.querySelector('.details').style.display = "none";
+        document.querySelector('.tweet').style.display = 'flex'
+        document.querySelectorAll('.post').forEach(post => {
+            post.style.borderBottom = '1px solid var(--border-color)';
+            post.style.display = 'flex';
+        })
+        originPost.querySelector('.view-comments').style.display = 'flex';
+        originPost.querySelector('.comments-count').style.display = 'flex';
+    })
+}
+
+
+// Emit a socket call for GIF data
+function searchGifs(e) {
+    e.preventDefault();
+    socket.emit('getGifs', e.target.giftext.value);
+}
+
+// Add Gifs from socket return
+function populateGifs(gifHTML) {
+    document.querySelector('#gif-container').innerHTML = "";
+    document.querySelector('#gif-container').insertAdjacentHTML("afterbegin", gifHTML);
+    document.querySelectorAll('.gifselection').forEach(gifSelect => gifSelect.addEventListener('click', addGifPost));
+}
+
+function addGifPost(e) {
+    document.getElementById('postplaceholder').src = e.target.src;
+    document.getElementById('postplaceholder').style.display = 'block';
 }
 
 document.querySelector('#post-form').addEventListener('submit', sendPost);
 searchSelector.addEventListener("mouseover", changeSearchBackgroundColour);
 searchSelector.addEventListener("mouseout", changeSearchBackgroundColourNormal);
+
+document.querySelector('.gif-forum').addEventListener('submit', searchGifs);
 
 // opening gif container
 document.getElementById('gif-icon').addEventListener('click', () => {
@@ -69,20 +123,7 @@ document.getElementById('gif-icon').addEventListener('click', () => {
 
 // closing gif button
 document.querySelector('.close').addEventListener('click', () => {
+    document.querySelector('#gif-container').innerHTML = "";
     document.querySelector('.bg-modal').style.display = 'none';
+    document.querySelector('.gif-forum').reset();
 })
-
-// close replies button
-document.querySelector('.details').addEventListener('click', () => {
-    document.querySelector('.replies').style.display = 'none';
-    document.querySelector('.post-reply').style.display = 'none';
-    document.querySelector('.details').style.display = 'none';
-})
-
-/*
-// giphy api
-(function () {
-    return fetch()
-})
-const GIPHY_API = `https://api.giphy.com/v1/gifs/search?q=${keyword}api_key=F5lIfSy0whiLXlpUdCs3OMVFe8Saf1sC&limit=20`;
-*/
