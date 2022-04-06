@@ -26,6 +26,10 @@ document.querySelector('.view-comments').addEventListener('click', () => {
     document.querySelector('.replies').style.display = 'flex';
     document.querySelector('.post-reply').style.display = 'flex';
     document.querySelector('.details').style.display = 'flex';
+    document.querySelector('.tweet').style.display = 'none';
+    document.querySelector('.post').style.borderBottom = 'none';
+    document.querySelector('.view-comments').style.display = 'none';
+    document.querySelector('.comments-count').style.display = 'none';
 })
 
 // close replies button
@@ -33,11 +37,20 @@ document.querySelector('.details').addEventListener('click', () => {
     document.querySelector('.replies').style.display = 'none';
     document.querySelector('.post-reply').style.display = 'none';
     document.querySelector('.details').style.display = 'none';
+    document.querySelector('.tweet').style.display = 'flex'
+    document.querySelector('.post').style.borderBottom = '1px solid var(--border-color)';
+    document.querySelector('.view-comments').style.display = 'flex';
+    document.querySelector('.comments-count').style.display = 'flex';
 })
 
-// giphy api
-(function () {
-    return fetch()
-})
-const GIPHY_API = `https://api.giphy.com/v1/gifs/search?q=${keyword}api_key=F5lIfSy0whiLXlpUdCs3OMVFe8Saf1sC&limit=20`;
+
+
+
+// preventing page from refreshing when form submits
+$(document).ready(function() {
+    $('form').submit(function(e) {
+        e.preventDefault();
+        // or return false;
+    });
+});
 
