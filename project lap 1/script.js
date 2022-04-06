@@ -35,9 +35,13 @@ document.querySelector('.details').addEventListener('click', () => {
     document.querySelector('.details').style.display = 'none';
 })
 
-// giphy api
-(function () {
-    return fetch()
-})
-const GIPHY_API = `https://api.giphy.com/v1/gifs/search?q=${keyword}api_key=F5lIfSy0whiLXlpUdCs3OMVFe8Saf1sC&limit=20`;
 
+
+
+// preventing page from refreshing when form submits
+$(document).ready(function() {
+    $('form').submit(function(e) {
+        e.preventDefault();
+        // or return false;
+    });
+});

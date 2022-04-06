@@ -7,20 +7,34 @@
 	<title>Sigma - General</title>
 	<script defer src="script.js"></script>
 	<link rel="stylesheet" href="style.css">
+	<!-- JQuery -->
+	<script
+        src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
 </head>
 </head>
 
 <body>
 	<div class="bg-modal">
-		<div class="modal-content">
-			<div class="top-popup">
-				<form class="gif-forum">
-					<div class="close">+</div>
-					<input class="gif-search" type="text" placeholder="Search for a GIF Chad">
-				</form>
-			</div>
-			<div class="gif-container">
 
+		<div class="gif-container">
+			<div class="top-popup">
+				<form id="searchForm" onsubmit="event.preventDefault();">
+					<div class="close">+</div>
+					<input id="searchInput" type="text" class="form-control" placeholder="Search for gifs Chad" 
+						aria-label="Recipient's username" aria-describedby="button-addon2">
+				</form>
+
+				<div id="thumbs">
+
+				</div>
+
+			</div>
+			<div class="loader-wrapper">
+				<div class="lds-circle">
+					<div></div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -36,7 +50,8 @@
 					<div>
 						<a href="">
 							<div>
-								<img class="topic-svg"src="images/general.png" alt="an image of the sigma symbol to represent the general topic">
+								<img class="topic-svg" src="images/general.png"
+									alt="an image of the sigma symbol to represent the general topic">
 								<span>General</span>
 							</div>
 						</a>
@@ -45,7 +60,8 @@
 					<div>
 						<a href="">
 							<div>
-								<img class="topic-svg"src="images/anime.svg" alt="a svg image of a uwu to represent the anime community">
+								<img class="topic-svg" src="images/anime.svg"
+									alt="a svg image of a uwu to represent the anime community">
 								<span>Anime</span>
 							</div>
 						</a>
@@ -54,7 +70,8 @@
 					<div>
 						<a href="">
 							<div>
-								<img class="topic-svg"src="images/confessions.png" alt="a svg image of a priest for the confessions topic">
+								<img class="topic-svg" src="images/confessions.png"
+									alt="a svg image of a priest for the confessions topic">
 								<span>Confessions</span>
 							</div>
 						</a>
@@ -63,7 +80,8 @@
 					<div>
 						<a href="">
 							<div>
-								<img class="topic-svg"src="images/fitness.svg" alt="a svg image of a dumbell for the fitness topic">
+								<img class="topic-svg" src="images/fitness.svg"
+									alt="a svg image of a dumbell for the fitness topic">
 								<span>Fitness</span>
 							</div>
 						</a>
@@ -72,7 +90,8 @@
 					<div>
 						<a href="">
 							<div>
-								<img class="topic-svg"src="images/grindset.svg" alt="a svg image of a chad flexing for the grindset topic">
+								<img class="topic-svg" src="images/grindset.svg"
+									alt="a svg image of a chad flexing for the grindset topic">
 								<span>Grindset</span>
 							</div>
 						</a>
@@ -81,7 +100,8 @@
 					<div>
 						<a href="">
 							<div>
-								<img class="topic-svg"src="images/meditation.svg" alt="a svg image of a monk meditating for meditation topic">
+								<img class="topic-svg" src="images/meditation.svg"
+									alt="a svg image of a monk meditating for meditation topic">
 								<span>Meditation</span>
 							</div>
 						</a>
@@ -90,7 +110,8 @@
 					<div>
 						<a href="">
 							<div>
-								<img class="topic-svg"src="images/journaling.svg" alt="a svg image of a book for journaling topic">
+								<img class="topic-svg" src="images/journaling.svg"
+									alt="a svg image of a book for journaling topic">
 								<span>Journaling</span>
 							</div>
 						</a>
@@ -99,7 +120,8 @@
 					<div>
 						<a href="">
 							<div>
-								<img class="topic-svg"src="images/wellbeing.svg" alt="a svg image of a healthy heart for well-being topic">
+								<img class="topic-svg" src="images/wellbeing.svg"
+									alt="a svg image of a healthy heart for well-being topic">
 								<span>Well-being</span>
 							</div>
 						</a>
@@ -599,6 +621,7 @@
 			</footer>
 		</aside>
 	</main>
+	<script src="giphyAPI.js"></script>
 </body>
 
 </html>
