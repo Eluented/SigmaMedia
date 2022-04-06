@@ -12,16 +12,20 @@ socket.on('connect', () => {
             updatePosts(postData[0])
         }
     });
+    socket.on('populateGifs', populateGifs);
 });
 
 function sendPost(e) {
     e.preventDefault();
     console.log(e.target.posttext.value)
     if (e.target.posttext.value && e.target.posttext.value !== undefined) {
+        document.getElementById('postplaceholder').style.display = 'none';
+        console.log(e.target.postplaceholder.src);
         const postData = {
             postText: e.target.posttext.value,
             postUser: socket.id,
-            postTopic: window.location.href.toString().split('/').at(-1)
+            postTopic: window.location.href.toString().split('/').at(-1),
+            postImg: e.target.postplaceholder.src
         };
 
         const options = {
@@ -58,9 +62,31 @@ function updatePosts(postHTML) {
     })
 }
 
+
+// Emit a socket call for GIF data
+function searchGifs(e) {
+    e.preventDefault();
+    socket.emit('getGifs', e.target.giftext.value);
+}
+
+// Add Gifs from socket return
+function populateGifs(gifHTML) {
+    document.querySelector('#gif-container').innerHTML = "";
+    document.querySelector('#gif-container').insertAdjacentHTML("afterbegin", gifHTML);
+    document.querySelectorAll('.gifselection').forEach(gifSelect => gifSelect.addEventListener('click', addGifPost));
+}
+
+function addGifPost(e) {
+    console.log(e.target.src)
+    document.getElementById('postplaceholder').src = e.target.src;
+    document.getElementById('postplaceholder').style.display = 'block';
+}
+
 document.querySelector('#post-form').addEventListener('submit', sendPost);
 searchSelector.addEventListener("mouseover", changeSearchBackgroundColour);
 searchSelector.addEventListener("mouseout", changeSearchBackgroundColourNormal);
+
+document.querySelector('.gif-forum').addEventListener('submit', searchGifs);
 
 // opening gif container
 document.getElementById('gif-icon').addEventListener('click', () => {
@@ -69,7 +95,20 @@ document.getElementById('gif-icon').addEventListener('click', () => {
 
 // closing gif button
 document.querySelector('.close').addEventListener('click', () => {
+    document.querySelector('#gif-container').innerHTML = "";
     document.querySelector('.bg-modal').style.display = 'none';
+    document.querySelector('.gif-forum').reset();
+})
+
+// pressing comments svg - opens an option to comment and an option to see replies - and also shows close svg
+document.querySelector('.view-comments').addEventListener('click', () => {
+    document.querySelector('.replies').style.display = 'flex';
+    document.querySelector('.post-reply').style.display = 'flex';
+    document.querySelector('.details').style.display = 'flex';
+    document.querySelector('.tweet').style.display = 'none';
+    document.querySelector('.post').style.borderBottom = 'none';
+    document.querySelector('.view-comments').style.display = 'none';
+    document.querySelector('.comments-count').style.display = 'none';
 })
 
 // close replies button
@@ -77,12 +116,8 @@ document.querySelector('.details').addEventListener('click', () => {
     document.querySelector('.replies').style.display = 'none';
     document.querySelector('.post-reply').style.display = 'none';
     document.querySelector('.details').style.display = 'none';
+    document.querySelector('.tweet').style.display = 'flex'
+    document.querySelector('.post').style.borderBottom = '1px solid var(--border-color)';
+    document.querySelector('.view-comments').style.display = 'flex';
+    document.querySelector('.comments-count').style.display = 'flex';
 })
-
-/*
-// giphy api
-(function () {
-    return fetch()
-})
-const GIPHY_API = `https://api.giphy.com/v1/gifs/search?q=${keyword}api_key=F5lIfSy0whiLXlpUdCs3OMVFe8Saf1sC&limit=20`;
-*/
