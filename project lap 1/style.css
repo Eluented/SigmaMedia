@@ -361,21 +361,22 @@ img {
 .post .bottom-row > div:hover > div, .replies .bottom-row > div:hover > div {
 	background-color:var(--shadow-color);
 }
- .bottom-row > div:hover > div svg, .post .bottom-row > div:hover > span, .bottom-row > div:hover > div svg, .replies .bottom-row > div:hover > span  {
+.bottom-row > div:hover > div svg, .post .bottom-row > div:hover > span, .bottom-row > div:hover > div svg, .replies .bottom-row > div:hover > span  {
 	color:var(--main-color);
 	fill:currentColor;
  }
- .post .bottom-row > div:nth-child(2):hover > div, .replies .bottom-row > div:nth-child(2):hover > div {
+ .post .bottom-row > div:nth-child(1):hover > div, .replies .bottom-row > div:nth-child(1):hover > div {
 	background-color:rgba(23,191,99, 0.2);
 }
- .bottom-row > div:nth-child(2):hover > div svg, .post .bottom-row > div:nth-child(2):hover > span, .replies .bottom-row > div:nth-child(2):hover > span {
+ .bottom-row > div:nth-child(1):hover > div svg, .post .bottom-row > div:nth-child(1):hover > span, .replies .bottom-row > div:nth-child(1):hover > span{
 	color:rgb(23, 191, 99);
 	fill:currentColor;
  }
-  .post .bottom-row > div:nth-child(3):hover > div, .replies .bottom-row > div:nth-child(3):hover > div {
+ /* comments */
+ .post .bottom-row > div:nth-child(2):hover > div, .replies .bottom-row > div:nth-child(2):hover > div {
 	background-color:rgba(224,36,94, 0.2);
 }
- .bottom-row > div:nth-child(3):hover > div svg, .post .bottom-row > div:nth-child(3):hover > span, .replies .bottom-row > div:nth-child(3):hover > span {
+ .bottom-row > div:nth-child(2):hover > div svg, .post .bottom-row > div:nth-child(2):hover > span, .replies .bottom-row > div:nth-child(2):hover > span {
 	color:rgb(224,36,94);
 	fill:currentColor;
  }
@@ -732,7 +733,7 @@ img {
 }
 
 .emoji img:hover{
-    transform: translateY(-10%) scale(1.2);
+    transform: translateY(-10%) scale(1.5);
     filter: drop-shadow(0 1px 5px grey);
 }
 
@@ -765,7 +766,7 @@ img {
 }
 
 .holder {
-    width: 40gitpx;
+    width: 40px;
 	height: 40px;
 }
 
@@ -773,3 +774,121 @@ img {
 	width: 45px;
 	height: 45px;
 }
+
+.rCount p {
+	position: absolute;
+	color: white;
+	font-size: 9px;
+	visibility: visible;
+	opacity: 1;
+	background-color: #0a0404c6;
+	top:70%;
+}
+
+.post-number{
+
+}
+
+.BRUH {
+	display: flex;
+	flex-grow: 1;
+	max-width: 100%;
+}
+
+.tweet .right-column .bottom-rowEEE, .post-reply .right-column .bottom-rowEEE {
+	width:100%;
+	display:flex;
+	align-items:center;
+	justify-content:space-between;
+	margin-top:12px;
+}
+.tweet .right-column .bottom-rowEEE .buttons > div, .post-reply .right-column .bottom-rowEEE .buttons > div{
+	width:38px;
+	height:38px;
+	border-radius:100%;
+	cursor:pointer;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+}
+.tweet .right-column .bottom-rowEEE .buttons, .post-reply .right-column .bottom-rowEEE .buttons{
+	display:flex;
+}
+.tweet .right-column .bottom-rowEEE .buttons > div:hover, .post-reply .right-column .bottom-rowEEE .buttons > div:hover  {
+	background: var(--shadow-color);
+}
+.tweet .right-column .bottom-rowEEE svg, .post-reply .right-column .bottom-rowEEE svg, .close-svg{
+	width:22px;
+	height:22px;
+	fill:var(--main-color);
+}
+
+.tweet .right-column .bottom-rowEEE .tweet-btn, .post-reply .right-column .bottom-rowEEE .tweet-btn{
+	width:90px;
+	opacity:0.5;
+	margin:0;
+}
+
+.post .bottom-rowEEE, .replies .bottom-rowEEE {
+	max-width:425px;
+	margin-top:12px;
+	justify-content:space-between;
+}
+.post .bottom-rowEEE, .post .bottom-rowEEE > div, .replies .bottom-rowEEE, .replies .bottom-rowEEE > div {
+	display:flex;
+	align-items:center;
+	color:rgb(136, 153, 166);
+	cursor:pointer;
+}
+.post .bottom-rowEEE > div, .replies .bottom-rowEEE > div {
+	margin:-8px;
+}
+.post .bottom-rowEEE > div > div, .replies .bottom-rowEEE > div > div {
+	border-radius:9999px;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+}
+.post .bottom-rowEEE > div:hover > div, .replies .bottom-rowEEE > div:hover > div {
+	background-color:var(--shadow-color);
+}
+ .bottom-rowEEE > div:hover > div svg, .post .bottom-rowEEE > div:hover > span, .bottom-rowEEE > div:hover > div svg, .replies .bottom-rowEEE > div:hover > span  {
+	color:var(--main-color);
+	fill:currentColor;
+ }
+ .post .bottom-rowEEE > div:nth-child(2):hover > div, .replies .bottom-rowEEE > div:nth-child(2):hover > div {
+	background-color:rgba(23,191,99, 0.2);
+}
+ .bottom-rowEEE > div:nth-child(2):hover > div svg, .post .bottom-rowEEE > div:nth-child(2):hover > span, .replies .bottom-rowEEE > div:nth-child(2):hover > span {
+	color:rgb(23, 191, 99);
+	fill:currentColor;
+ }
+  .post .bottom-rowEEE > div:nth-child(3):hover > div, .replies .bottom-rowEEE > div:nth-child(3):hover > div {
+	background-color:rgba(224,36,94, 0.2);
+}
+ .bottom-rowEEE > div:nth-child(3):hover > div svg, .post .bottom-rowEEE > div:nth-child(3):hover > span, .replies .bottom-rowEEE > div:nth-child(3):hover > span {
+	color:rgb(224,36,94);
+	fill:currentColor;
+ }
+.post .bottom-rowEEE span, .replies .bottom-rowEEE span {
+	font-size:13px;
+}
+.post .bottom-rowEEE span, .post .bottom-rowEEE svg, .replies .bottom-rowEEE span, .replies .bottom-rowEEE svg {
+	fill:rgb(136, 153, 166);
+	color:inherit;
+	font-family:inherit;
+}
+.post .bottom-rowEEE svg, .replies .bottom-rowEEE svg {
+	margin:8px;
+	width:1.25em;
+	height:1.25em;
+}
+.post .bottom-rowEEE span, .replies .bottom-rowEEE span {
+	padding:0 12px;
+	line-height:20px;
+}
+
+ .bottom-rowEEE > div:nth-child(1):hover > div svg, .post .bottom-rowEEE > div:nth-child(1):hover > span, .replies .bottom-rowEEE > div:nth-child(1):hover > span {
+    color:rgb(224,36,94);
+    fill:currentColor;
+ }
