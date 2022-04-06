@@ -26,6 +26,10 @@ document.querySelector('.view-comments').addEventListener('click', () => {
     document.querySelector('.replies').style.display = 'flex';
     document.querySelector('.post-reply').style.display = 'flex';
     document.querySelector('.details').style.display = 'flex';
+    document.querySelector('.tweet').style.display = 'none';
+    document.querySelector('.post').style.borderBottom = 'none';
+    document.querySelector('.view-comments').style.display = 'none';
+    document.querySelector('.comments-count').style.display = 'none';
 })
 
 // close replies button
@@ -33,6 +37,7 @@ document.querySelector('.details').addEventListener('click', () => {
     document.querySelector('.replies').style.display = 'none';
     document.querySelector('.post-reply').style.display = 'none';
     document.querySelector('.details').style.display = 'none';
+    document.querySelector('.tweet').style.display = 'flex'
 })
 
 
@@ -45,3 +50,4 @@ $(document).ready(function() {
         // or return false;
     });
 });
+
