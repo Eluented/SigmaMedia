@@ -1,6 +1,11 @@
 import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 const socket = io();
+// Set Topic titles
+document.querySelector('title').textContent = `Σ - ${window.location.href.toString().split('/').at(-1).charAt(0).toUpperCase() + window.location.href.toString().split('/').at(-1).slice(1)}`
+document.querySelector('#topic').textContent = `${window.location.href.toString().split('/').at(-1).charAt(0).toUpperCase() + window.location.href.toString().split('/').at(-1).slice(1)}`
+
 const searchSelector = document.querySelector('.search');
+let commentMode = false;
 
 socket.on('connect', () => {
     socket.on('newUser', (userAmount) => {
@@ -17,10 +22,8 @@ socket.on('connect', () => {
 
 function sendPost(e) {
     e.preventDefault();
-    console.log(e.target.posttext.value)
     if (e.target.posttext.value && e.target.posttext.value !== undefined) {
         document.getElementById('postplaceholder').style.display = 'none';
-        console.log(e.target.postplaceholder.src);
         const postData = {
             postText: e.target.posttext.value,
             postUser: socket.id,
@@ -55,10 +58,36 @@ function updatePosts(postHTML) {
     document.querySelector('#postfeed').insertAdjacentHTML("afterbegin", postHTML);
 
     // pressing comments svg - opens an option to comment and an option to see replies - and also shows close svg
-    document.querySelector('.view-comments').addEventListener('click', () => {
+    document.querySelector('.view-comments').addEventListener('click', (e) => {
+        const originPost = e.target.closest('.post');
         document.querySelector('.replies').style.display = 'flex';
         document.querySelector('.post-reply').style.display = 'flex';
-        document.querySelector('.details').style.display = 'flex';
+        document.querySelector('.tweet').style.display = 'none';
+        
+        // Hide all the posts
+        document.querySelectorAll('.post').forEach(post => post.style.display = 'none');
+        
+        // Show the target post
+        originPost.style.display = "flex";
+        originPost.style.borderBottom = 'none';
+        originPost.querySelector('.details').style.display = 'flex';
+        originPost.querySelector('.view-comments').style.display = 'none';
+        originPost.querySelector('.comments-count').style.display = 'none';
+    })
+
+    // close replies button
+    document.querySelector('.details').addEventListener('click', (e) => {
+        const originPost = e.target.closest('.post');
+        document.querySelector('.replies').style.display = 'none';
+        document.querySelector('.post-reply').style.display = 'none';
+        originPost.querySelector('.details').style.display = "none";
+        document.querySelector('.tweet').style.display = 'flex'
+        document.querySelectorAll('.post').forEach(post => {
+            post.style.borderBottom = '1px solid var(--border-color)';
+            post.style.display = 'flex';
+        })
+        originPost.querySelector('.view-comments').style.display = 'flex';
+        originPost.querySelector('.comments-count').style.display = 'flex';
     })
 }
 
@@ -77,7 +106,6 @@ function populateGifs(gifHTML) {
 }
 
 function addGifPost(e) {
-    console.log(e.target.src)
     document.getElementById('postplaceholder').src = e.target.src;
     document.getElementById('postplaceholder').style.display = 'block';
 }
@@ -98,26 +126,4 @@ document.querySelector('.close').addEventListener('click', () => {
     document.querySelector('#gif-container').innerHTML = "";
     document.querySelector('.bg-modal').style.display = 'none';
     document.querySelector('.gif-forum').reset();
-})
-
-// pressing comments svg - opens an option to comment and an option to see replies - and also shows close svg
-document.querySelector('.view-comments').addEventListener('click', () => {
-    document.querySelector('.replies').style.display = 'flex';
-    document.querySelector('.post-reply').style.display = 'flex';
-    document.querySelector('.details').style.display = 'flex';
-    document.querySelector('.tweet').style.display = 'none';
-    document.querySelector('.post').style.borderBottom = 'none';
-    document.querySelector('.view-comments').style.display = 'none';
-    document.querySelector('.comments-count').style.display = 'none';
-})
-
-// close replies button
-document.querySelector('.details').addEventListener('click', () => {
-    document.querySelector('.replies').style.display = 'none';
-    document.querySelector('.post-reply').style.display = 'none';
-    document.querySelector('.details').style.display = 'none';
-    document.querySelector('.tweet').style.display = 'flex'
-    document.querySelector('.post').style.borderBottom = '1px solid var(--border-color)';
-    document.querySelector('.view-comments').style.display = 'flex';
-    document.querySelector('.comments-count').style.display = 'flex';
 })
