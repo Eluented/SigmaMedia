@@ -117,3 +117,18 @@ body {
     width: auto;
     height: 700px;
 }
+
+#logo {
+    height: 100px;
+    width: 200px;
+    position:fixed; 
+	top:0; 
+	left:0; 
+    margin-left: 0.6vw;
+}
+
+.sigma-media {
+    max-width: 100%;
+    max-height: 100%;
+}
+
