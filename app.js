@@ -13,7 +13,7 @@ const io = require('socket.io')(server, {
 let usersOnline = 0;
 
 app.use(cors());
-app.use(express.json())
+app.use(express.json());
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
@@ -48,14 +48,8 @@ function formatPostHTML(postObj) {
                     <span class="time">${date.toString().split(' ').slice(0, -4).join(' ')}</span>
                 </div>
                 <div class="details">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <g>
-                            <circle cx="5" cy="12" r="2"></circle>
-                            <circle cx="12" cy="12" r="2"></circle>
-                            <circle cx="19" cy="12" r="2"></circle>
-                        </g>
-                    </svg>
-                </div>
+					<img src="images/closereplies.svg" alt="close button" class="close-svg">
+				</div>
             </header>
             <p> ${postObj.postText}
             </p>
@@ -72,7 +66,7 @@ function formatPostHTML(postObj) {
                         </g>
                     </svg>
                 </div>
-                <span>165</span>
+                <span class="comments-count">165</span>
             </div>
             <!-- Retweet Button -->
             <div>
@@ -134,14 +128,8 @@ function formatPostHTML(postObj) {
                     <span class="time">${date.toString().split(' ').slice(0, -4).join(' ')}</span>
                 </div>
                 <div class="details">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <g>
-                            <circle cx="5" cy="12" r="2"></circle>
-                            <circle cx="12" cy="12" r="2"></circle>
-                            <circle cx="19" cy="12" r="2"></circle>
-                        </g>
-                    </svg>
-                </div>
+					<img src="images/closereplies.svg" alt="close button" class="close-svg">
+				</div>
             </header>
             <p> ${postObj.postText}
             </p>
@@ -159,7 +147,7 @@ function formatPostHTML(postObj) {
                         </g>
                     </svg>
                 </div>
-                <span>165</span>
+                <span class="comments-count">165</span>
             </div>
             <!-- Retweet Button -->
             <div>
