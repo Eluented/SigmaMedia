@@ -61,7 +61,7 @@ function formatPostHTML(postObj) {
             <!-- Comment Button -->
             <div>
                 <div>
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <svg class="view-comments" flexDirection viewBox="0 0 24 24" aria-hidden="true">
                         <g>
                             <path
                                 d="M14.046 2.242l-4.148-.01h-.002c-4.374 0-7.8 3.427-7.8 7.802 0 4.098 3.186 7.206 7.465 7.37v3.828c0 .108.044.286.12.403.142.225.384.347.632.347.138 0 .277-.038.402-.118.264-.168 6.473-4.14 8.088-5.506 1.902-1.61 3.04-3.97 3.043-6.312v-.017c-.006-4.367-3.43-7.787-7.8-7.788zm3.787 12.972c-1.134.96-4.862 3.405-6.772 4.643V16.67c0-.414-.335-.75-.75-.75h-.396c-3.66 0-6.318-2.476-6.318-5.886 0-3.534 2.768-6.302 6.3-6.302l4.147.01h.002c3.532 0 6.3 2.766 6.302 6.296-.003 1.91-.942 3.844-2.514 5.176z">
@@ -126,43 +126,67 @@ function previousPosts(topic, socket) {
         } else {
             try {
                 switch (topic) {
+                    case "general":
+                        allPosts['AllPosts'][0]['generalPosts'].forEach(post => {
+                            if (post.postNum !== 0) {
+                                const postHTML = formatPostHTML(post);
+                                socket.emit('updatePosts', [postHTML, 'general']);
+                            }
+                        })
+                        break
                     case "anime":
                         allPosts['AllPosts'][1]['animePosts'].forEach(post => {
-                            if (post.postNum !== 0){
+                            if (post.postNum !== 0) {
                                 const postHTML = formatPostHTML(post);
-                                socket.emit('updatePosts', postHTML);
+                                socket.emit('updatePosts', [postHTML, 'anime']);
                             }
                         })
                         break
                     case "confessions":
                         allPosts['AllPosts'][2]['confessionPosts'].forEach(post => {
-                            if (post.postNum !== 0){
+                            if (post.postNum !== 0) {
                                 const postHTML = formatPostHTML(post);
-                                socket.emit('updatePosts', postHTML);
+                                socket.emit('updatePosts', [postHTML, 'confessions']);
                             }
                         })
                         break
                     case "fitness":
                         allPosts['AllPosts'][3]['fitnessPosts'].forEach(post => {
-                            if (post.postNum !== 0){
+                            if (post.postNum !== 0) {
                                 const postHTML = formatPostHTML(post);
-                                socket.emit('updatePosts', postHTML);
+                                socket.emit('updatePosts', [postHTML, 'fitness']);
                             }
                         })
                         break
                     case "grindset":
                         allPosts['AllPosts'][4]['grindsetPosts'].forEach(post => {
-                            if (post.postNum !== 0){
+                            if (post.postNum !== 0) {
                                 const postHTML = formatPostHTML(post);
-                                socket.emit('updatePosts', postHTML);
+                                socket.emit('updatePosts', [postHTML, 'grindset']);
+                            }
+                        })
+                        break
+                    case "meditation":
+                        allPosts['AllPosts'][5]['meditationPosts'].forEach(post => {
+                            if (post.postNum !== 0) {
+                                const postHTML = formatPostHTML(post);
+                                socket.emit('updatePosts', [postHTML, 'meditation']);
+                            }
+                        })
+                        break
+                    case "journaling":
+                        allPosts['AllPosts'][6]['journalingPosts'].forEach(post => {
+                            if (post.postNum !== 0) {
+                                const postHTML = formatPostHTML(post);
+                                socket.emit('updatePosts', [postHTML, 'journaling']);
                             }
                         })
                         break
                     case "wellbeing":
                         allPosts['AllPosts'][7]['wellbeingPosts'].forEach(post => {
-                            if (post.postNum !== 0){
+                            if (post.postNum !== 0) {
                                 const postHTML = formatPostHTML(post);
-                                socket.emit('updatePosts', postHTML);
+                                socket.emit('updatePosts', [postHTML, 'wellbeing']);
                             }
                         })
                         break
@@ -174,10 +198,10 @@ function previousPosts(topic, socket) {
     })
 }
 
-function updatePostHTML(postObj) {
+function updatePostHTML(postObj, topic) {
     const postHTML = formatPostHTML(postObj);
 
-    io.emit('updatePosts', postHTML);
+    io.emit('updatePosts', [postHTML, topic]);
 }
 
 app.get('/', (req, res) => {
@@ -186,25 +210,37 @@ app.get('/', (req, res) => {
 
 app.get('/:topic', (req, res) => {
     switch (req.params.topic) {
+        case "general":
+            console.log("general");
+            res.render('general')
+            break;
         case "anime":
             console.log("anime");
-            res.render('index');
+            res.render('anime');
             break;
         case "confessions":
             console.log("confessions");
-            res.render('index');
+            res.render('confessions');
             break;
         case "fitness":
             console.log("fitness");
-            res.render('index');
+            res.render('fitness');
             break;
         case "grindset":
             console.log("grindset");
-            res.render('index');
+            res.render('grindset');
+            break;
+        case "meditation":
+            console.log("meditation");
+            res.render('meditation');
+            break;
+        case "journaling":
+            console.log("journaling");
+            res.render('journaling');
             break;
         case "wellbeing":
             console.log("wellbeing");
-            res.render('index');
+            res.render('wellbeing');
             break;
         default:
             res.status(404).send("Error page not found.");
@@ -229,42 +265,56 @@ app.post('/sendPost', (req, res) => {
                         postObj['postNum'] = allPosts['AllPosts'][0]['generalPosts'].at(-1).postNum + 1;
                         allPosts['AllPosts'][0]['generalPosts'].push(postObj);
                         jsonfile.writeFile('./data/posts.json', allPosts);
-                        updatePostHTML(postObj);
+                        updatePostHTML(postObj, 'general');
                         res.status(201).send();
                         break
                     case 'anime':
                         postObj['postNum'] = allPosts['AllPosts'][1]['animePosts'].at(-1).postNum + 1;
                         allPosts['AllPosts'][1]['animePosts'].push(postObj);
                         jsonfile.writeFile('./data/posts.json', allPosts);
-                        updatePostHTML(postObj);
+                        updatePostHTML(postObj, 'anime');
                         res.status(201).send();
                         break
                     case 'confessions':
                         postObj['postNum'] = allPosts['AllPosts'][2]['confessionPosts'].at(-1).postNum + 1;
                         allPosts['AllPosts'][2]['confessionPosts'].push(postObj);
                         jsonfile.writeFile('./data/posts.json', allPosts);
-                        updatePostHTML(postObj);
+                        updatePostHTML(postObj, 'confessions');
                         res.status(201).send();
                         break
                     case 'fitness':
                         postObj['postNum'] = allPosts['AllPosts'][3]['fitnessPosts'].at(-1).postNum + 1;
                         allPosts['AllPosts'][3]['fitnessPosts'].push(postObj);
                         jsonfile.writeFile('./data/posts.json', allPosts);
-                        updatePostHTML(postObj);
+                        updatePostHTML(postObj, 'fitness');
                         res.status(201).send();
                         break
                     case 'grindset':
                         postObj['postNum'] = allPosts['AllPosts'][4]['grindsetPosts'].at(-1).postNum + 1;
                         allPosts['AllPosts'][4]['grindsetPosts'].push(postObj);
                         jsonfile.writeFile('./data/posts.json', allPosts);
-                        updatePostHTML(postObj);
+                        updatePostHTML(postObj, 'grindset');
+                        res.status(201).send();
+                        break
+                    case 'meditation':
+                        postObj['postNum'] = allPosts['AllPosts'][5]['meditationPosts'].at(-1).postNum + 1;
+                        allPosts['AllPosts'][5]['meditationPosts'].push(postObj);
+                        jsonfile.writeFile('./data/posts.json', allPosts);
+                        updatePostHTML(postObj, 'meditation');
+                        res.status(201).send();
+                        break
+                    case 'journaling':
+                        postObj['postNum'] = allPosts['AllPosts'][6]['journalingPosts'].at(-1).postNum + 1;
+                        allPosts['AllPosts'][6]['journalingPosts'].push(postObj);
+                        jsonfile.writeFile('./data/posts.json', allPosts);
+                        updatePostHTML(postObj, 'journaling');
                         res.status(201).send();
                         break
                     case 'wellbeing':
                         postObj['postNum'] = allPosts['AllPosts'][7]['wellbeingPosts'].at(-1).postNum + 1;
                         allPosts['AllPosts'][7]['wellbeingPosts'].push(postObj);
                         jsonfile.writeFile('./data/posts.json', allPosts);
-                        updatePostHTML(postObj);
+                        updatePostHTML(postObj, 'wellbeing');
                         res.status(201).send();
                         break
                     default:
