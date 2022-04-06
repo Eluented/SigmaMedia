@@ -38,6 +38,9 @@ document.querySelector('.details').addEventListener('click', () => {
     document.querySelector('.post-reply').style.display = 'none';
     document.querySelector('.details').style.display = 'none';
     document.querySelector('.tweet').style.display = 'flex'
+    document.querySelector('.post').style.borderBottom = '1px solid var(--border-color)';
+    document.querySelector('.view-comments').style.display = 'flex';
+    document.querySelector('.comments-count').style.display = 'flex';
 })
 
 
