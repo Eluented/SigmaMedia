@@ -699,24 +699,18 @@ img {
 
 .reactBtn {
     position: absolute;
-    text-transform: capitalize;
-    text-decoration: none;
-    padding: 5px 17px;
+    padding: 0;
     color: white;
-    background-color: rgb(118, 118, 118);
-    font-family: Source Sans Pro;
-    font-size: 0.9rem;
-	top: 8%;
-	left: 1%;
-	width: 4vw;
-	min-width: 70x;
-    border-radius: 50px;
     z-index: 1;
+}
+
+.reactBtn img{
+	width: 40px;
 }
 
 .emoji {
     width: 100%;
-    height: 5vh;
+    height: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -771,9 +765,11 @@ img {
 }
 
 .holder {
-    width: 4vw;
+    width: 40gitpx;
+	height: 40px;
 }
 
 .reaction-capsule{
-	width: 70px;
+	width: 45px;
+	height: 45px;
 }
