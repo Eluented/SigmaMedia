@@ -33,7 +33,7 @@ io.on('connection', (socket) => {
 function formatPostHTML(postObj) {
     const date = new Date(postObj.postDateTime);
     let postHTML;
-    if (postObj.postImg === "http://:0/") {
+    if (postObj.postImg === "http://:0/" || postObj.postImg === "https://:0/") {
         postHTML = `<div class="post">
     <div class="left-column">
         <img class="profile-image" src="images/anonymousChad.jpg">
