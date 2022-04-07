@@ -13,7 +13,9 @@
                         {
                             "commentUser": "randomID",
                             "commentDateTime": "DateTimeObj",
-                            "commentText": "Hello World"
+                            "commentText": "Hello World",
+                            "commentImg": false,
+                            "commentReactions": []
                         }
                     ]
                 }
@@ -32,7 +34,9 @@
                         {
                             "commentUser": "randomID",
                             "commentDateTime": "DateTimeObj",
-                            "commentText": "Hello World"
+                            "commentText": "Hello World",
+                            "commentImg": false,
+                            "commentReactions": []
                         }
                     ]
                 }
@@ -51,7 +55,9 @@
                         {
                             "commentUser": "randomID",
                             "commentDateTime": "DateTimeObj",
-                            "commentText": "Hello World"
+                            "commentText": "Hello World",
+                            "commentImg": false,
+                            "commentReactions": []
                         }
                     ]
                 }
@@ -70,7 +76,9 @@
                         {
                             "commentUser": "randomID",
                             "commentDateTime": "DateTimeObj",
-                            "commentText": "Hello World"
+                            "commentText": "Hello World",
+                            "commentImg": false,
+                            "commentReactions": []
                         }
                     ]
                 }
@@ -89,7 +97,9 @@
                         {
                             "commentUser": "randomID",
                             "commentDateTime": "DateTimeObj",
-                            "commentText": "Hello World"
+                            "commentText": "Hello World",
+                            "commentImg": false,
+                            "commentReactions": []
                         }
                     ]
                 }
@@ -108,7 +118,9 @@
                         {
                             "commentUser": "randomID",
                             "commentDateTime": "DateTimeObj",
-                            "commentText": "Hello World"
+                            "commentText": "Hello World",
+                            "commentImg": false,
+                            "commentReactions": []
                         }
                     ]
                 }
@@ -127,7 +139,9 @@
                         {
                             "commentUser": "randomID",
                             "commentDateTime": "DateTimeObj",
-                            "commentText": "Hello World"
+                            "commentText": "Hello World",
+                            "commentImg": false,
+                            "commentReactions": []
                         }
                     ]
                 }
@@ -146,7 +160,9 @@
                         {
                             "commentUser": "randomID",
                             "commentDateTime": "DateTimeObj",
-                            "commentText": "Hello World"
+                            "commentText": "Hello World",
+                            "commentImg": false,
+                            "commentReactions": []
                         }
                     ]
                 }

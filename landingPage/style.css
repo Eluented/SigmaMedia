@@ -1,5 +1,5 @@
 @font-face {
-	font-family: ;
+	font-family: TwitterChirp;
 	src: url(https://abs.twimg.cTwitterChirpExtendedHeavyom/fonts/chirp-extended-heavy-web.woff2) format('woff2');
 	src: url(https://abs.twimg.com/fonts/chirp-extended-heavy-web.woff) format('woff');
 	font-weight: 800;
@@ -67,7 +67,6 @@ input:focus {
 	outline:none;
 }
 img {
-	user-drag: none; 
 	user-select: none;
 	-moz-user-select: none;
 	-webkit-user-drag: none;
