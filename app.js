@@ -32,7 +32,7 @@ io.on('connection', (socket) => {
 function formatPostHTML(postObj) {
     const date = new Date(postObj.postDateTime);
     let postHTML;
-    if (postObj.postImg === "") {
+    if (postObj.postImg === "http://:0/") {
         postHTML = `<div class="post">
     <div class="left-column">
         <img class="profile-image" src="images/anonymousChad.jpg">
@@ -314,42 +314,11 @@ app.get('/', (req, res) => {
 })
 
 app.get('/:topic', (req, res) => {
-    switch (req.params.topic) {
-        case "general":
-            console.log("general");
-            res.render('general')
-            break;
-        case "anime":
-            console.log("anime");
-            res.render('anime');
-            break;
-        case "confessions":
-            console.log("confessions");
-            res.render('confessions');
-            break;
-        case "fitness":
-            console.log("fitness");
-            res.render('fitness');
-            break;
-        case "grindset":
-            console.log("grindset");
-            res.render('grindset');
-            break;
-        case "meditation":
-            console.log("meditation");
-            res.render('meditation');
-            break;
-        case "journaling":
-            console.log("journaling");
-            res.render('journaling');
-            break;
-        case "wellbeing":
-            console.log("wellbeing");
-            res.render('wellbeing');
-            break;
-        default:
-            res.status(404).send("Error page not found.");
-            break;
+    const valid_topics = ['general', 'anime', 'confessions', 'fitness', 'grindset', 'meditation', 'journaling', 'wellbeing']
+    if (valid_topics.includes(req.params.topic)) {
+        res.render('topicPage');
+    } else {
+        res.status(404).send('Error page not found');
     }
 })
 
