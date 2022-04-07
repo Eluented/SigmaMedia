@@ -21,6 +21,7 @@ io.on('connection', (socket) => {
     usersOnline++;
     socket.emit('newUser', usersOnline);
     socket.on('previousPosts', (topic) => previousPosts(topic, socket));
+    socket.on('previousComments', (commentData) => previousComments(commentData, socket));
     socket.on('getGifs', (gifSearch) => sendGIFHTML(gifSearch, socket));
     socket.broadcast.emit('newUser', usersOnline);
     socket.on('disconnect', () => {
@@ -40,13 +41,17 @@ function formatPostHTML(postObj) {
     <div class="right-column">
         <article class="top-row">
             <header class="post-header">
-                <div>
+                <div class="BRUH">
                     <strong>
                         <span>${postObj.postUser}</span>
                     </strong>
                     <span class="dot">.</span>
                     <span class="time">${date.toString().split(' ').slice(0, -4).join(' ')}</span>
                 </div>
+                <div class="post-number">
+								<strong>Post No.</strong>
+								<span id="postnum">${postObj.postNum}</span>
+							</div>
                 <div class="details">
 					<img src="images/closereplies.svg" alt="close button" class="close-svg">
 				</div>
@@ -54,61 +59,64 @@ function formatPostHTML(postObj) {
             <p> ${postObj.postText}
             </p>
         </article>
-        <div class="bottom-row">
+        <div class="bottom-rowEEE">
             <!-- Comment Button -->
             <div>
-                <div>
-                    <svg class="view-comments" flexDirection viewBox="0 0 24 24" aria-hidden="true">
-                        <g>
-                            <path
-                                d="M14.046 2.242l-4.148-.01h-.002c-4.374 0-7.8 3.427-7.8 7.802 0 4.098 3.186 7.206 7.465 7.37v3.828c0 .108.044.286.12.403.142.225.384.347.632.347.138 0 .277-.038.402-.118.264-.168 6.473-4.14 8.088-5.506 1.902-1.61 3.04-3.97 3.043-6.312v-.017c-.006-4.367-3.43-7.787-7.8-7.788zm3.787 12.972c-1.134.96-4.862 3.405-6.772 4.643V16.67c0-.414-.335-.75-.75-.75h-.396c-3.66 0-6.318-2.476-6.318-5.886 0-3.534 2.768-6.302 6.3-6.302l4.147.01h.002c3.532 0 6.3 2.766 6.302 6.296-.003 1.91-.942 3.844-2.514 5.176z">
-                            </path>
-                        </g>
-                    </svg>
-                </div>
-                <span class="comments-count">165</span>
-            </div>
-            <!-- Retweet Button -->
-            <div>
-                <div>
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <g>
-                            <path
-                                d="M23.77 15.67c-.292-.293-.767-.293-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z">
-                            </path>
-                        </g>
-                    </svg>
-                </div>
-                <span>32</span>
-            </div>
-            <!-- Like Button -->
-            <div>
-                <div>
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <g>
-                            <path
-                                d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z">
-                            </path>
-                        </g>
-                    </svg>
-                </div>
-                <span>382</span>
-            </div>
-            <!-- Share Button -->
-            <div>
-                <div>
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <g>
-                            <path
-                                d="M17.53 7.47l-5-5c-.293-.293-.768-.293-1.06 0l-5 5c-.294.293-.294.768 0 1.06s.767.294 1.06 0l3.72-3.72V15c0 .414.336.75.75.75s.75-.336.75-.75V4.81l3.72 3.72c.146.147.338.22.53.22s.384-.072.53-.22c.293-.293.293-.767 0-1.06z">
-                            </path>
-                            <path
-                                d="M19.708 21.944H4.292C3.028 21.944 2 20.916 2 19.652V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 .437.355.792.792.792h15.416c.437 0 .792-.355.792-.792V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 1.264-1.028 2.292-2.292 2.292z">
-                            </path>
-                        </g>
-                    </svg>
-                </div>
-            </div>
+				<div class="comment-svg-container">
+					<svg class="view-comments" viewBox="0 0 1550 1550" id="svg3013" version="1.1"
+						inkscape:version="0.48.3.1 r9886" width="100%" height="100%"
+						sodipodi:docname="comments_alt_font_awesome.svg">
+						<g transform="matrix(1,0,0,-1,30.372881,1259.8983)" id="g3015">
+							<path
+								d="M 704,1152 Q 551,1152 418,1100 285,1048 206.5,959 128,870 128,768 q 0,-82 53,-158 53,-76 149,-132 l 97,-56 -35,-84 q 34,20 62,39 l 44,31 53,-10 q 78,-14 153,-14 153,0 286,52 133,52 211.5,141 78.5,89 78.5,191 0,102 -78.5,191 -78.5,89 -211.5,141 -133,52 -286,52 z m 0,128 q 191,0 353.5,-68.5 Q 1220,1143 1314,1025 1408,907 1408,768 1408,629 1314,511 1220,393 1057.5,324.5 895,256 704,256 618,256 528,272 404,184 250,144 214,135 164,128 h -3 q -11,0 -20.5,8 -9.5,8 -11.5,21 -1,3 -1,6.5 0,3.5 0.5,6.5 0.5,3 2,6 l 2.5,5 q 0,0 3.5,5.5 3.5,5.5 4,5 0.5,-0.5 4.5,5 4,5.5 4,4.5 5,6 23,25 18,19 26,29.5 8,10.5 22.5,29 Q 235,303 245.5,323 256,343 266,367 142,439 71,544 0,649 0,768 0,907 94,1025 188,1143 350.5,1211.5 513,1280 704,1280 z M 1526,111 q 10,-24 20.5,-44 10.5,-20 25,-38.5 14.5,-18.5 22.5,-29 8,-10.5 26,-29.5 18,-19 23,-25 1,-1 4,-4.5 3,-3.5 4.5,-5 1.5,-1.5 4,-5 2.5,-3.5 3.5,-5.5 l 2.5,-5 q 0,0 2,-6 2,-6 0.5,-6.5 -1.5,-0.5 -1,-6.5 -3,-14 -13,-22 -10,-8 -22,-7 -50,7 -86,16 Q 1388,-72 1264,16 1174,0 1088,0 817,0 616,132 q 58,-4 88,-4 161,0 309,45 148,45 264,129 125,92 192,212 67,120 67,254 0,77 -23,152 129,-71 204,-178 75,-107 75,-230 0,-120 -71,-224.5 Q 1650,183 1526,111 z"
+								id="path3017" inkscape:connector-curvature="0" style="fill:currentColor" />
+						</g>
+					</svg>
+				</div>
+				<span class="comments-count">${postObj.comments.length}</span>
+			</div>
+            <!--emoji box start-->
+						<div class="reaction-capsule">
+							<div class="emojiContainer">
+								<div class="reactBox">
+									<a href="#" class="reactBtn"><img src="emoji/previewEmoji.gif" alt=""></a>
+									<div class="emoji">
+										<div class="reacts">
+											<div class="holder"></div>
+										</div>
+										<div class="reacts">
+											<p>Giga Chad<br>Approved</p>
+											<img src="emoji/emojiChad.gif" alt="">
+											<div class="rCount">
+												<p>69</p>
+											</div>
+										</div>
+										<div class="reacts">
+											<p>I feel you<br>Bro</p>
+											<img src="emoji/emojiFeelYou.gif" alt="">
+											<div class="rCount">
+												<p>420</p>
+											</div>
+										</div>
+										<div class="reacts">
+											<p>That's sus<br>Bro</p>
+											<img src="emoji/emojiAnon.gif" alt="">
+											<div class="rCount">
+												<p>314</p>
+											</div>
+										</div>
+										<div class="reacts">
+											<p>You made<br>my day</p>
+											<img src="emoji/emojiYesBro.gif" alt="">
+											<div class="rCount">
+												<p>42</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--end of emoji box-->
         </div>
     </div>
 </div>`
@@ -127,69 +135,76 @@ function formatPostHTML(postObj) {
                     <span class="dot">.</span>
                     <span class="time">${date.toString().split(' ').slice(0, -4).join(' ')}</span>
                 </div>
+                <div class="post-number">
+								<strong>Post No.</strong>
+								<span id="postnum">${postObj.postNum}</span>
+							</div>
                 <div class="details">
 					<img src="images/closereplies.svg" alt="close button" class="close-svg">
 				</div>
             </header>
             <p> ${postObj.postText}
             </p>
-            <img style="width: 300px; height: auto;" src="${postObj.postImg}"/>
+            <img style="width: auto; height: 300px;" src="${postObj.postImg}"/>
         </article>
-        <div class="bottom-row">
+        <div class="bottom-rowEEE">
             <!-- Comment Button -->
             <div>
-                <div>
-                    <svg class="view-comments" flexDirection viewBox="0 0 24 24" aria-hidden="true">
-                        <g>
-                            <path
-                                d="M14.046 2.242l-4.148-.01h-.002c-4.374 0-7.8 3.427-7.8 7.802 0 4.098 3.186 7.206 7.465 7.37v3.828c0 .108.044.286.12.403.142.225.384.347.632.347.138 0 .277-.038.402-.118.264-.168 6.473-4.14 8.088-5.506 1.902-1.61 3.04-3.97 3.043-6.312v-.017c-.006-4.367-3.43-7.787-7.8-7.788zm3.787 12.972c-1.134.96-4.862 3.405-6.772 4.643V16.67c0-.414-.335-.75-.75-.75h-.396c-3.66 0-6.318-2.476-6.318-5.886 0-3.534 2.768-6.302 6.3-6.302l4.147.01h.002c3.532 0 6.3 2.766 6.302 6.296-.003 1.91-.942 3.844-2.514 5.176z">
-                            </path>
-                        </g>
-                    </svg>
-                </div>
-                <span class="comments-count">165</span>
-            </div>
-            <!-- Retweet Button -->
-            <div>
-                <div>
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <g>
-                            <path
-                                d="M23.77 15.67c-.292-.293-.767-.293-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z">
-                            </path>
-                        </g>
-                    </svg>
-                </div>
-                <span>32</span>
-            </div>
-            <!-- Like Button -->
-            <div>
-                <div>
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <g>
-                            <path
-                                d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z">
-                            </path>
-                        </g>
-                    </svg>
-                </div>
-                <span>382</span>
-            </div>
-            <!-- Share Button -->
-            <div>
-                <div>
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <g>
-                            <path
-                                d="M17.53 7.47l-5-5c-.293-.293-.768-.293-1.06 0l-5 5c-.294.293-.294.768 0 1.06s.767.294 1.06 0l3.72-3.72V15c0 .414.336.75.75.75s.75-.336.75-.75V4.81l3.72 3.72c.146.147.338.22.53.22s.384-.072.53-.22c.293-.293.293-.767 0-1.06z">
-                            </path>
-                            <path
-                                d="M19.708 21.944H4.292C3.028 21.944 2 20.916 2 19.652V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 .437.355.792.792.792h15.416c.437 0 .792-.355.792-.792V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 1.264-1.028 2.292-2.292 2.292z">
-                            </path>
-                        </g>
-                    </svg>
-                </div>
-            </div>
+				<div class="comment-svg-container">
+					<svg class="view-comments" viewBox="0 0 1550 1550" id="svg3013" version="1.1"
+						inkscape:version="0.48.3.1 r9886" width="100%" height="100%"
+						sodipodi:docname="comments_alt_font_awesome.svg">
+						<g transform="matrix(1,0,0,-1,30.372881,1259.8983)" id="g3015">
+							<path
+								d="M 704,1152 Q 551,1152 418,1100 285,1048 206.5,959 128,870 128,768 q 0,-82 53,-158 53,-76 149,-132 l 97,-56 -35,-84 q 34,20 62,39 l 44,31 53,-10 q 78,-14 153,-14 153,0 286,52 133,52 211.5,141 78.5,89 78.5,191 0,102 -78.5,191 -78.5,89 -211.5,141 -133,52 -286,52 z m 0,128 q 191,0 353.5,-68.5 Q 1220,1143 1314,1025 1408,907 1408,768 1408,629 1314,511 1220,393 1057.5,324.5 895,256 704,256 618,256 528,272 404,184 250,144 214,135 164,128 h -3 q -11,0 -20.5,8 -9.5,8 -11.5,21 -1,3 -1,6.5 0,3.5 0.5,6.5 0.5,3 2,6 l 2.5,5 q 0,0 3.5,5.5 3.5,5.5 4,5 0.5,-0.5 4.5,5 4,5.5 4,4.5 5,6 23,25 18,19 26,29.5 8,10.5 22.5,29 Q 235,303 245.5,323 256,343 266,367 142,439 71,544 0,649 0,768 0,907 94,1025 188,1143 350.5,1211.5 513,1280 704,1280 z M 1526,111 q 10,-24 20.5,-44 10.5,-20 25,-38.5 14.5,-18.5 22.5,-29 8,-10.5 26,-29.5 18,-19 23,-25 1,-1 4,-4.5 3,-3.5 4.5,-5 1.5,-1.5 4,-5 2.5,-3.5 3.5,-5.5 l 2.5,-5 q 0,0 2,-6 2,-6 0.5,-6.5 -1.5,-0.5 -1,-6.5 -3,-14 -13,-22 -10,-8 -22,-7 -50,7 -86,16 Q 1388,-72 1264,16 1174,0 1088,0 817,0 616,132 q 58,-4 88,-4 161,0 309,45 148,45 264,129 125,92 192,212 67,120 67,254 0,77 -23,152 129,-71 204,-178 75,-107 75,-230 0,-120 -71,-224.5 Q 1650,183 1526,111 z"
+								id="path3017" inkscape:connector-curvature="0" style="fill:currentColor" />
+						</g>
+					</svg>
+				</div>
+				<span class="comments-count">${postObj.comments.length}</span>
+			</div>
+            <!--emoji box start-->
+						<div class="reaction-capsule">
+							<div class="emojiContainer">
+								<div class="reactBox">
+									<a href="#" class="reactBtn"><img src="emoji/previewEmoji.gif" alt=""></a>
+									<div class="emoji">
+										<div class="reacts">
+											<div class="holder"></div>
+										</div>
+										<div class="reacts">
+											<p>Giga Chad<br>Approved</p>
+											<img src="emoji/emojiChad.gif" alt="">
+											<div class="rCount">
+												<p>69</p>
+											</div>
+										</div>
+										<div class="reacts">
+											<p>I feel you<br>Bro</p>
+											<img src="emoji/emojiFeelYou.gif" alt="">
+											<div class="rCount">
+												<p>420</p>
+											</div>
+										</div>
+										<div class="reacts">
+											<p>That's sus<br>Bro</p>
+											<img src="emoji/emojiAnon.gif" alt="">
+											<div class="rCount">
+												<p>314</p>
+											</div>
+										</div>
+										<div class="reacts">
+											<p>You made<br>my day</p>
+											<img src="emoji/emojiYesBro.gif" alt="">
+											<div class="rCount">
+												<p>42</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--end of emoji box-->
         </div>
     </div>
 </div>`
@@ -197,6 +212,166 @@ function formatPostHTML(postObj) {
 
 
     return postHTML
+}
+
+function formatCommentHTML(commentObj) {
+    const date = new Date(commentObj.commentDateTime);
+    let commentHTML;
+
+    if (commentObj.commentImg === "http://:0/") {
+        commentHTML = `<div class="reply">
+        <div class="left-column">
+            <img class="profile-image" src="images/anonymousChad.jpg">
+        </div>
+        <div class="right-column">
+            <article class="top-row">
+                <header class="post-header">
+                    <div class="BRUH">
+                        <strong>
+                            <span>${commentObj.commentUser}</span>
+                        </strong>
+                        <span class="dot">.</span>
+                        <span class="time">${date.toString().split(' ').slice(0, -4).join(' ')}</span>
+                    </div>
+                    <div class="details">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <g>
+                                <circle cx="5" cy="12" r="2"></circle>
+                                <circle cx="12" cy="12" r="2"></circle>
+                                <circle cx="19" cy="12" r="2"></circle>
+                            </g>
+                        </svg>
+                    </div>
+                </header>
+
+                <p>${commentObj.commentText}
+                </p>
+            </article>
+            <div class="bottom-row">
+                <!--emoji box start-->
+            <div class="reaction-capsule">
+                <div class="emojiContainer">
+                    <div class="reactBox">
+                        <a href="#" class="reactBtn"><img src="emoji/previewEmoji.gif" alt=""></a>
+                        <div class="emoji">
+                            <div class="reacts">
+                                <div class="holder"></div>
+                            </div>
+                            <div class="reacts">
+                                <p>Giga Chad<br>Approved</p>
+                                <img src="emoji/emojiChad.gif" alt="">
+                                <div class="rCount">
+                                    <p>69</p>
+                                </div>
+                            </div>
+                            <div class="reacts">
+                                <p>I feel you<br>Bro</p>
+                                <img src="emoji/emojiFeelYou.gif" alt="">
+                                <div class="rCount">
+                                    <p>420</p>
+                                </div>
+                            </div>
+                            <div class="reacts">
+                                <p>That's sus<br>Bro</p>
+                                <img src="emoji/emojiAnon.gif" alt="">
+                                <div class="rCount">
+                                    <p>314</p>
+                                </div>
+                            </div>
+                            <div class="reacts">
+                                <p>You made<br>my day</p>
+                                <img src="emoji/emojiYesBro.gif" alt="">
+                                <div class="rCount">
+                                    <p>42</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end of emoji box-->
+            </div>
+        </div>
+    </div>`
+    } else {
+        commentHTML = `<div class="reply">
+        <div class="left-column">
+            <img class="profile-image" src="images/anonymousChad.jpg">
+        </div>
+        <div class="right-column">
+            <article class="top-row">
+                <header class="post-header">
+                    <div class="BRUH">
+                        <strong>
+                            <span>${commentObj.commentUser}</span>
+                        </strong>
+                        <span class="dot">.</span>
+                        <span class="time">${date.toString().split(' ').slice(0, -4).join(' ')}</span>
+                    </div>
+                    <div class="details">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <g>
+                                <circle cx="5" cy="12" r="2"></circle>
+                                <circle cx="12" cy="12" r="2"></circle>
+                                <circle cx="19" cy="12" r="2"></circle>
+                            </g>
+                        </svg>
+                    </div>
+                </header>
+
+                <p>${commentObj.commentText}
+                </p>
+                <img style="width: auto; height: 300px;" src="${commentObj.commentImg}"/>
+            </article>
+            <div class="bottom-row">
+                <!--emoji box start-->
+            <div class="reaction-capsule">
+                <div class="emojiContainer">
+                    <div class="reactBox">
+                        <a href="#" class="reactBtn"><img src="emoji/previewEmoji.gif" alt=""></a>
+                        <div class="emoji">
+                            <div class="reacts">
+                                <div class="holder"></div>
+                            </div>
+                            <div class="reacts">
+                                <p>Giga Chad<br>Approved</p>
+                                <img src="emoji/emojiChad.gif" alt="">
+                                <div class="rCount">
+                                    <p>69</p>
+                                </div>
+                            </div>
+                            <div class="reacts">
+                                <p>I feel you<br>Bro</p>
+                                <img src="emoji/emojiFeelYou.gif" alt="">
+                                <div class="rCount">
+                                    <p>420</p>
+                                </div>
+                            </div>
+                            <div class="reacts">
+                                <p>That's sus<br>Bro</p>
+                                <img src="emoji/emojiAnon.gif" alt="">
+                                <div class="rCount">
+                                    <p>314</p>
+                                </div>
+                            </div>
+                            <div class="reacts">
+                                <p>You made<br>my day</p>
+                                <img src="emoji/emojiYesBro.gif" alt="">
+                                <div class="rCount">
+                                    <p>42</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end of emoji box-->
+            </div>
+        </div>
+    </div>`
+    }
+
+    return commentHTML;
 }
 
 function sendGIFHTML(gifSearch, socket) {
@@ -303,10 +478,97 @@ function previousPosts(topic, socket) {
     })
 }
 
+function previousComments(commentData, socket) {
+    jsonfile.readFile('./data/posts.json', (err, allPosts) => {
+        if (err) {
+            console.log(`Error reading file from disk: ${err}`);
+        } else {
+            try {
+                switch (commentData[0]) {
+                    case "general":
+                        allPosts['AllPosts'][0]['generalPosts'].forEach(post => {
+                            if (post.postNum === commentData[1]) {
+                                post.comments.forEach(comment => {
+                                    const commentHTML = formatCommentHTML(comment);
+                                    socket.emit('updateComments', [commentHTML, 'general', post.postNum]);
+                                })
+                            }
+                        })
+                        break
+                    case "anime":
+                        allPosts['AllPosts'][1]['animePosts'].forEach(post => {
+                            if (post.postNum !== 0) {
+                                const postHTML = formatPostHTML(post);
+                                socket.emit('updatePosts', [postHTML, 'anime']);
+                            }
+                        })
+                        break
+                    case "confessions":
+                        allPosts['AllPosts'][2]['confessionPosts'].forEach(post => {
+                            if (post.postNum !== 0) {
+                                const postHTML = formatPostHTML(post);
+                                socket.emit('updatePosts', [postHTML, 'confessions']);
+                            }
+                        })
+                        break
+                    case "fitness":
+                        allPosts['AllPosts'][3]['fitnessPosts'].forEach(post => {
+                            if (post.postNum !== 0) {
+                                const postHTML = formatPostHTML(post);
+                                socket.emit('updatePosts', [postHTML, 'fitness']);
+                            }
+                        })
+                        break
+                    case "grindset":
+                        allPosts['AllPosts'][4]['grindsetPosts'].forEach(post => {
+                            if (post.postNum !== 0) {
+                                const postHTML = formatPostHTML(post);
+                                socket.emit('updatePosts', [postHTML, 'grindset']);
+                            }
+                        })
+                        break
+                    case "meditation":
+                        allPosts['AllPosts'][5]['meditationPosts'].forEach(post => {
+                            if (post.postNum !== 0) {
+                                const postHTML = formatPostHTML(post);
+                                socket.emit('updatePosts', [postHTML, 'meditation']);
+                            }
+                        })
+                        break
+                    case "journaling":
+                        allPosts['AllPosts'][6]['journalingPosts'].forEach(post => {
+                            if (post.postNum !== 0) {
+                                const postHTML = formatPostHTML(post);
+                                socket.emit('updatePosts', [postHTML, 'journaling']);
+                            }
+                        })
+                        break
+                    case "wellbeing":
+                        allPosts['AllPosts'][7]['wellbeingPosts'].forEach(post => {
+                            if (post.postNum !== 0) {
+                                const postHTML = formatPostHTML(post);
+                                socket.emit('updatePosts', [postHTML, 'wellbeing']);
+                            }
+                        })
+                        break
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    })
+}
+
 function updatePostHTML(postObj, topic) {
     const postHTML = formatPostHTML(postObj);
 
     io.emit('updatePosts', [postHTML, topic]);
+}
+
+function updateCommentHTML(commentObj, topic, postNumber) {
+    const commentHTML = formatCommentHTML(commentObj);
+
+    io.emit('updateComments', [commentHTML, topic, postNumber]);
 }
 
 app.get('/', (req, res) => {
@@ -333,7 +595,9 @@ app.post('/sendPost', (req, res) => {
                     postUser: data.postUser,
                     postDateTime: Date.now(),
                     postText: data.postText,
-                    postImg: data.postImg
+                    postImg: data.postImg,
+                    postReactions: [],
+                    comments: []
                 }
                 switch (data['postTopic']) {
                     case 'general':
@@ -394,6 +658,112 @@ app.post('/sendPost', (req, res) => {
                         break
                     default:
                         res.status(400).send()
+                        break
+                }
+            } catch (error) {
+                console.log(error);
+                res.status(400).send(error);
+            }
+        }
+    })
+})
+
+app.post('/sendComment', (req, res) => {
+    const data = req.body
+    jsonfile.readFile('./data/posts.json', (err, allPosts) => {
+        if (err) {
+            console.log(`Error reading file from disk: ${err}`);
+        } else {
+            try {
+                const commentObj = {
+                    commentUser: data.commentUser,
+                    commentDateTime: Date.now(),
+                    commentText: data.commentText,
+                    commentImg: data.commentImg
+                }
+                switch (data['postTopic']) {
+                    case 'general':
+                        allPosts['AllPosts'][0]['generalPosts'].forEach(post => {
+                            if (post.postNum === data.commentPostNum) {
+                                post.comments.push(commentObj);
+                            }
+                        })
+                        jsonfile.writeFile('./data/posts.json', allPosts);
+                        updateCommentHTML(commentObj, 'general', data.commentPostNum);
+                        res.status(201).send();
+                        break
+                    case 'anime':
+                        allPosts['AllPosts'][1]['animePosts'].forEach(post => {
+                            if (post.postNum === data.commentPostNum) {
+                                post.comments.push(commentObj);
+                            }
+                        })
+                        jsonfile.writeFile('./data/posts.json', allPosts);
+                        updateCommentHTML(commentObj, 'anime', data.commentPostNum);
+                        res.status(201).send();
+                        break
+                    case 'confessions':
+                        allPosts['AllPosts'][2]['confessionPosts'].forEach(post => {
+                            if (post.postNum === data.commentPostNum) {
+                                post.comments.push(commentObj);
+                            }
+                        })
+                        jsonfile.writeFile('./data/posts.json', allPosts);
+                        updateCommentHTML(commentObj, 'confessions', data.commentPostNum);
+                        res.status(201).send();
+                        break
+                    case 'fitness':
+                        allPosts['AllPosts'][3]['fitnessPosts'].forEach(post => {
+                            if (post.postNum === data.commentPostNum) {
+                                post.comments.push(commentObj);
+                            }
+                        })
+                        jsonfile.writeFile('./data/posts.json', allPosts);
+                        updateCommentHTML(commentObj, 'fitness', data.commentPostNum);
+                        res.status(201).send();
+                        break
+                    case 'grindset':
+                        allPosts['AllPosts'][4]['grindsetPosts'].forEach(post => {
+                            if (post.postNum === data.commentPostNum) {
+                                post.comments.push(commentObj);
+                            }
+                        })
+                        jsonfile.writeFile('./data/posts.json', allPosts);
+                        updateCommentHTML(commentObj, 'grindset', data.commentPostNum);
+                        res.status(201).send();
+                        break
+                    case 'meditation':
+                        allPosts['AllPosts'][5]['meditationPosts'].forEach(post => {
+                            if (post.postNum === data.commentPostNum) {
+                                post.comments.push(commentObj);
+                            }
+                        })
+                        jsonfile.writeFile('./data/posts.json', allPosts);
+                        updateCommentHTML(commentObj, 'meditation', data.commentPostNum);
+                        res.status(201).send();
+                        break
+                    case 'journaling':
+                        allPosts['AllPosts'][6]['journalingPosts'].forEach(post => {
+                            if (post.postNum === data.commentPostNum) {
+                                post.comments.push(commentObj);
+                            }
+                        })
+                        jsonfile.writeFile('./data/posts.json', allPosts);
+                        updateCommentHTML(commentObj, 'journaling', data.commentPostNum);
+                        res.status(201).send();
+                        break
+                    case 'wellbeing':
+                        allPosts['AllPosts'][7]['wellbeingPosts'].forEach(post => {
+                            if (post.postNum === data.commentPostNum) {
+                                post.comments.push(commentObj);
+                            }
+                        })
+                        jsonfile.writeFile('./data/posts.json', allPosts);
+                        updateCommentHTML(commentObj, 'wellbeing', data.commentPostNum);
+                        res.status(201).send();
+                        break
+                    default:
+                        res.status(400).send('Error bad request.')
                         break
                 }
             } catch (error) {
