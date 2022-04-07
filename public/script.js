@@ -1,8 +1,9 @@
 import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 const socket = io();
+const pageTopic = window.location.href.toString().split('/').at(-1).replace(/[^a-zA-Z0-9 ]/g, '')
 // Set Topic titles
-document.querySelector('title').textContent = `Σ - ${window.location.href.toString().split('/').at(-1).charAt(0).toUpperCase() + window.location.href.toString().split('/').at(-1).slice(1).replace(/[^a-zA-Z0-9 ]/g, '')}`
-document.querySelector('#topic').textContent = `${window.location.href.toString().split('/').at(-1).charAt(0).toUpperCase() + window.location.href.toString().split('/').at(-1).slice(1).replace(/[^a-zA-Z0-9 ]/g, '')}`
+document.querySelector('title').textContent = `Σ - ${pageTopic.charAt(0).toUpperCase() + pageTopic.slice(1)}`
+document.querySelector('#topic').textContent = `${pageTopic.charAt(0).toUpperCase() + pageTopic.slice(1)}`
 
 // Commenting or Posting?
 let commentMode = false;
@@ -16,16 +17,15 @@ socket.on('connect', () => {
         document.querySelector("#users-online").textContent = `Chads Online: ${userAmount}`;
     });
     // Ask for the previous posts on the topic
-    socket.emit('previousPosts', window.location.href.toString().split('/').at(-1))
+    socket.emit('previousPosts', pageTopic);
     // Receive the previous posts of the topic
     socket.on('updatePosts', (postData) => {
-        if (postData[1] === window.location.href.toString().split('/').at(-1)) {
+        if (postData[1] === pageTopic) {
             updatePosts(postData[0]);
         }
     });
     socket.on('updateComments', (commentData) => {
-        console.log(commentData);
-        if (commentData[1] === window.location.href.toString().split('/').at(-1) && commentMode && parseInt(document.getElementById('commenttext').getAttribute('postnumber')) === commentData[2]) {
+        if (commentData[1] === pageTopic && commentMode && parseInt(document.getElementById('commenttext').getAttribute('postnumber')) === commentData[2]) {
             updateComments(commentData[0]);
         }
     })
@@ -43,7 +43,7 @@ function sendPost(e) {
         const postData = {
             postText: e.target.posttext.value,
             postUser: socket.id,
-            postTopic: window.location.href.toString().split('/').at(-1),
+            postTopic: pageTopic,
             postImg: e.target.postplaceholder.src
         };
 
@@ -72,14 +72,13 @@ function sendComment(e) {
     e.preventDefault();
     // Make sure the input isn't blank
     if (e.target.commenttext.value && e.target.commenttext.value !== undefined) {
-        console.log(parseInt(e.target.commenttext.getAttribute('postnumber')));
         // Creating the comment object
         const commentData = {
             commentText: e.target.commenttext.value,
             commentUser: socket.id,
             commentPostNum: parseInt(e.target.commenttext.getAttribute('postnumber')),
             commentImg: e.target.commentplaceholder.src,
-            postTopic: window.location.href.toString().split('/').at(-1)
+            postTopic: pageTopic
         };
 
         // HTTP request options
@@ -116,10 +115,9 @@ function updatePosts(postHTML) {
     // Pressing comments svg - opens an option to comment and an option to see replies - and also shows close svg
     document.querySelector('.view-comments').addEventListener('click', (e) => {
         commentMode = true;
-        const topic = window.location.href.toString().split('/').at(-1)
         const originPost = e.target.closest('.post');
         const postNumber = originPost.querySelector('#postnum').textContent;
-        socket.emit('previousComments', [topic, parseInt(postNumber)]);
+        socket.emit('previousComments', [pageTopic, parseInt(postNumber)]);
         document.querySelector('#commenttext').setAttribute('postnumber', postNumber);
         document.querySelector('#replies').style.display = 'block';
         document.querySelector('.post-reply').style.display = 'flex';

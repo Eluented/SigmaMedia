@@ -497,57 +497,71 @@ function previousComments(commentData, socket) {
                         break
                     case "anime":
                         allPosts['AllPosts'][1]['animePosts'].forEach(post => {
-                            if (post.postNum !== 0) {
-                                const postHTML = formatPostHTML(post);
-                                socket.emit('updatePosts', [postHTML, 'anime']);
+                            if (post.postNum === commentData[1]) {
+                                post.comments.forEach(comment => {
+                                    const commentHTML = formatCommentHTML(comment);
+                                    socket.emit('updateComments', [commentHTML, 'anime', post.postNum]);
+                                })
                             }
                         })
                         break
                     case "confessions":
                         allPosts['AllPosts'][2]['confessionPosts'].forEach(post => {
-                            if (post.postNum !== 0) {
-                                const postHTML = formatPostHTML(post);
-                                socket.emit('updatePosts', [postHTML, 'confessions']);
+                            if (post.postNum === commentData[1]) {
+                                post.comments.forEach(comment => {
+                                    const commentHTML = formatCommentHTML(comment);
+                                    socket.emit('updateComments', [commentHTML, 'confessions', post.postNum]);
+                                })
                             }
                         })
                         break
                     case "fitness":
                         allPosts['AllPosts'][3]['fitnessPosts'].forEach(post => {
-                            if (post.postNum !== 0) {
-                                const postHTML = formatPostHTML(post);
-                                socket.emit('updatePosts', [postHTML, 'fitness']);
+                            if (post.postNum === commentData[1]) {
+                                post.comments.forEach(comment => {
+                                    const commentHTML = formatCommentHTML(comment);
+                                    socket.emit('updateComments', [commentHTML, 'fitness', post.postNum]);
+                                })
                             }
                         })
                         break
                     case "grindset":
                         allPosts['AllPosts'][4]['grindsetPosts'].forEach(post => {
-                            if (post.postNum !== 0) {
-                                const postHTML = formatPostHTML(post);
-                                socket.emit('updatePosts', [postHTML, 'grindset']);
+                            if (post.postNum === commentData[1]) {
+                                post.comments.forEach(comment => {
+                                    const commentHTML = formatCommentHTML(comment);
+                                    socket.emit('updateComments', [commentHTML, 'grindset', post.postNum]);
+                                })
                             }
                         })
                         break
                     case "meditation":
                         allPosts['AllPosts'][5]['meditationPosts'].forEach(post => {
-                            if (post.postNum !== 0) {
-                                const postHTML = formatPostHTML(post);
-                                socket.emit('updatePosts', [postHTML, 'meditation']);
+                            if (post.postNum === commentData[1]) {
+                                post.comments.forEach(comment => {
+                                    const commentHTML = formatCommentHTML(comment);
+                                    socket.emit('updateComments', [commentHTML, 'meditation', post.postNum]);
+                                })
                             }
                         })
                         break
                     case "journaling":
                         allPosts['AllPosts'][6]['journalingPosts'].forEach(post => {
-                            if (post.postNum !== 0) {
-                                const postHTML = formatPostHTML(post);
-                                socket.emit('updatePosts', [postHTML, 'journaling']);
+                            if (post.postNum === commentData[1]) {
+                                post.comments.forEach(comment => {
+                                    const commentHTML = formatCommentHTML(comment);
+                                    socket.emit('updateComments', [commentHTML, 'journaling', post.postNum]);
+                                })
                             }
                         })
                         break
                     case "wellbeing":
                         allPosts['AllPosts'][7]['wellbeingPosts'].forEach(post => {
-                            if (post.postNum !== 0) {
-                                const postHTML = formatPostHTML(post);
-                                socket.emit('updatePosts', [postHTML, 'wellbeing']);
+                            if (post.postNum === commentData[1]) {
+                                post.comments.forEach(comment => {
+                                    const commentHTML = formatCommentHTML(comment);
+                                    socket.emit('updateComments', [commentHTML, 'wellbeing', post.postNum]);
+                                })
                             }
                         })
                         break
