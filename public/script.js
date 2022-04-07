@@ -5,25 +5,32 @@ document.querySelector('title').textContent = `Σ - ${window.location.href.toStr
 document.querySelector('#topic').textContent = `${window.location.href.toString().split('/').at(-1).charAt(0).toUpperCase() + window.location.href.toString().split('/').at(-1).slice(1)}`
 
 const searchSelector = document.querySelector('.search');
-let commentMode = false;
 
+// Use connects to server, upon socket conection do the following
 socket.on('connect', () => {
+    // Amount of active users is received and page updated accordingly
     socket.on('newUser', (userAmount) => {
         document.querySelector("#users-online").textContent = `Chads Online: ${userAmount}`;
     });
+    // Ask for the previous posts on the topic
     socket.emit('previousPosts', window.location.href.toString().split('/').at(-1))
+    // Receive the previous posts of the topic
     socket.on('updatePosts', (postData) => {
         if (postData[1] === window.location.href.toString().split('/').at(-1)) {
             updatePosts(postData[0])
         }
     });
+    // Receive the GIFs HTML from server
     socket.on('populateGifs', populateGifs);
 });
 
+// Sending a post to the server
 function sendPost(e) {
+    // Stop submit from refreshing the page
     e.preventDefault();
+    // Make sure the input isn't blank
     if (e.target.posttext.value && e.target.posttext.value !== undefined) {
-        document.getElementById('postplaceholder').style.display = 'none';
+        // Creating the post object
         const postData = {
             postText: e.target.posttext.value,
             postUser: socket.id,
@@ -31,6 +38,7 @@ function sendPost(e) {
             postImg: e.target.postplaceholder.src
         };
 
+        // HTTP request options
         const options = {
             method: 'POST',
             body: JSON.stringify(postData),
@@ -38,8 +46,11 @@ function sendPost(e) {
                 "Content-Type": "application/json"
             }
         };
-
+        
+        // Reset everything to blank
         document.querySelector('#post-form').reset();
+        document.getElementById('postplaceholder').style.display = 'none';
+        document.getElementById('postplaceholder').src = '//:0';
 
         fetch(`${window.location.origin}/sendPost`, options)
     }
