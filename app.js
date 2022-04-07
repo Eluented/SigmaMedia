@@ -218,7 +218,7 @@ function formatCommentHTML(commentObj) {
     const date = new Date(commentObj.commentDateTime);
     let commentHTML;
 
-    if (commentObj.commentImg === "http://:0/") {
+    if (commentObj.commentImg === "http://:0/" || commentObj.commentImg === "https://:0/") {
         commentHTML = `<div class="reply">
         <div class="left-column">
             <img class="profile-image" src="images/anonymousChad.jpg">
