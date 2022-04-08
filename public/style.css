@@ -139,9 +139,11 @@ img {
 	height:46px;
 	font-weight:700;
 	border:none;
-	background-color:var(--main-color);
+	background-color:black;
+	border-color: #fff;
+	border: 1px solid;
 	border-radius:30px;
-	color:inherit;
+	color:white;
 	margin:16px 0;
 }
 .left-side .right-column {
@@ -428,7 +430,7 @@ img {
 	font-size:16px;
 }
 .trends, .who-to-follow {
-	background-color:rgb(25, 39, 52);
+	background-color:rgb(60, 60, 60);
 	border-radius:15px;
 	margin-top:12px;
 }
@@ -507,7 +509,7 @@ img {
 .line {
 	background-color:rgba(0, 0, 0, 0);
 	height:1px;
-	border:1px solid rgb(25, 39, 52); 
+	border:1px solid rgb(60, 60, 60); 
 	margin:16px 0;
 	border-radius:16px;
 }
@@ -889,3 +891,11 @@ img {
     color:rgb(224,36,94);
     fill:currentColor;
  }
+
+ .textLimiter { /* wraps up the text when it hits the limit of the box */
+	overflow:hidden;
+	display:inline-block;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding-right: 50px;
+}

@@ -8,8 +8,6 @@ document.querySelector('#topic').textContent = `${pageTopic.charAt(0).toUpperCas
 // Commenting or Posting?
 let commentMode = false;
 
-const searchSelector = document.querySelector('.search');
-
 // Use connects to server, upon socket conection do the following
 socket.on('connect', () => {
     // Amount of active users is received and page updated accordingly
@@ -24,11 +22,14 @@ socket.on('connect', () => {
             updatePosts(postData[0]);
         }
     });
+    // Receive previous comments on post
     socket.on('updateComments', (commentData) => {
         if (commentData[1] === pageTopic && commentMode && parseInt(document.getElementById('commenttext').getAttribute('postnumber')) === commentData[2]) {
             updateComments(commentData[0]);
         }
     })
+    // Reaction Updates
+    socket.on('updateReactions', updateReactions)
     // Receive the GIFs HTML from server
     socket.on('populateGifs', populateGifs);
 });
@@ -100,17 +101,39 @@ function sendComment(e) {
     }
 }
 
-// changing colour of input top right
-function changeSearchBackgroundColour() {
-    searchSelector.style.background = "white";
-}
-// changing colour of input top right
-function changeSearchBackgroundColourNormal() {
-    searchSelector.style.background = "rgb(118, 118, 118)";
-}
-
 function updatePosts(postHTML) {
     document.querySelector('#postfeed').insertAdjacentHTML("afterbegin", postHTML);
+    
+    // Post Reactions
+    const reactBox = document.querySelector('.reactBox');
+    reactBox.querySelector('.chadReact').addEventListener('click', (e) => {
+        const postNumber = parseInt(e.target.closest('.post').querySelector('#postnum').textContent)
+        socket.emit('sendReaction', 
+        {reaction: "chad",
+         topic: pageTopic,
+         postNumber: postNumber});
+    })
+    reactBox.querySelector('.feelsReact').addEventListener('click', (e) => {
+        const postNumber = parseInt(e.target.closest('.post').querySelector('#postnum').textContent)
+        socket.emit('sendReaction', 
+        {reaction: "sad",
+        topic: pageTopic,
+        postNumber: postNumber});
+    })
+    reactBox.querySelector('.susReact').addEventListener('click', (e) => {
+        const postNumber = parseInt(e.target.closest('.post').querySelector('#postnum').textContent)
+        socket.emit('sendReaction', 
+        {reaction: "sus",
+        topic: pageTopic,
+        postNumber: postNumber});
+    })
+    reactBox.querySelector('.madeDayReact').addEventListener('click', (e) => {
+        const postNumber = parseInt(e.target.closest('.post').querySelector('#postnum').textContent)
+        socket.emit('sendReaction', 
+        {reaction: "good",
+        topic: pageTopic,
+        postNumber: postNumber});
+    })
 
     // Pressing comments svg - opens an option to comment and an option to see replies - and also shows close svg
     document.querySelector('.view-comments').addEventListener('click', (e) => {
@@ -150,6 +173,7 @@ function updatePosts(postHTML) {
         originPost.querySelector('.view-comments').style.display = 'flex';
         originPost.querySelector('.comments-count').style.display = 'flex';
     })
+
 }
 
 // Update the comment HTML
@@ -188,14 +212,23 @@ function populateGifs(gifHTML) {
     }));
 }
 
+// Update post reactions
+function updateReactions(reactionObj) {
+    document.querySelectorAll('.post').forEach(post => {
+        if (post.querySelector('#postnum').textContent === reactionObj['postNum'].toString()) {
+            post.querySelector('.chadReactCount').querySelector('p').textContent = reactionObj['postReactions']['chad'].toString()
+            post.querySelector('.feelsReactCount').querySelector('p').textContent = reactionObj['postReactions']['sad'].toString()
+            post.querySelector('.susReactCount').querySelector('p').textContent = reactionObj['postReactions']['sus'].toString()
+            post.querySelector('.madeDayReactCount').querySelector('p').textContent = reactionObj['postReactions']['good'].toString()
+        }
+    })
+}
+
 // Event listener for sending a post
 document.querySelector('#post-form').addEventListener('submit', sendPost);
 
 // Event listener for sending a comment
 document.querySelector('#comment-form').addEventListener('submit', sendComment);
-
-searchSelector.addEventListener("mouseover", changeSearchBackgroundColour);
-searchSelector.addEventListener("mouseout", changeSearchBackgroundColourNormal);
 
 // Event listener for getting GIFs
 document.querySelector('.gif-forum').addEventListener('submit', searchGifs);
