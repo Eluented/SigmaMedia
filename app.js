@@ -2,6 +2,7 @@ const axios = require('axios');
 const jsonfile = require('jsonfile');
 const express = require('express');
 const cors = require('cors');
+const { json } = require('express');
 
 // Initialise Server and Sockets
 const app = express();
@@ -19,10 +20,12 @@ app.set('view engine', 'ejs');
 
 io.on('connection', (socket) => {
     usersOnline++;
+    socket.data.alreadyReacted = [];
     socket.emit('newUser', usersOnline);
     socket.on('previousPosts', (topic) => previousPosts(topic, socket));
     socket.on('previousComments', (commentData) => previousComments(commentData, socket));
     socket.on('getGifs', (gifSearch) => sendGIFHTML(gifSearch, socket));
+    socket.on('sendReaction', (reactionData) => storeReactions(reactionData, socket));
     socket.broadcast.emit('newUser', usersOnline);
     socket.on('disconnect', () => {
         usersOnline--;
@@ -79,40 +82,40 @@ function formatPostHTML(postObj) {
 						<div class="reaction-capsule">
 							<div class="emojiContainer">
 								<div class="reactBox">
-									<a href="#" class="reactBtn"><img src="emoji/previewEmoji.gif" alt=""></a>
+									<a class="reactBtn"><img src="emoji/previewEmoji.gif" alt=""></a>
 									<div class="emoji">
-										<div class="reacts">
-											<div class="holder"></div>
-										</div>
-										<div class="reacts">
-											<p>Giga Chad<br>Approved</p>
-											<img src="emoji/emojiChad.gif" alt="">
-											<div class="rCount">
-												<p>69</p>
-											</div>
-										</div>
-										<div class="reacts">
-											<p>I feel you<br>Bro</p>
-											<img src="emoji/emojiFeelYou.gif" alt="">
-											<div class="rCount">
-												<p>420</p>
-											</div>
-										</div>
-										<div class="reacts">
-											<p>That's sus<br>Bro</p>
-											<img src="emoji/emojiAnon.gif" alt="">
-											<div class="rCount">
-												<p>314</p>
-											</div>
-										</div>
-										<div class="reacts">
-											<p>You made<br>my day</p>
-											<img src="emoji/emojiYesBro.gif" alt="">
-											<div class="rCount">
-												<p>42</p>
-											</div>
-										</div>
-									</div>
+                            <div class="reacts">
+                                <div class="holder"></div>
+                            </div>
+                            <div class="reacts">
+                                <p>Giga Chad<br>Approved</p>
+                                <img class="chadReact" src="emoji/emojiChad.gif" alt="">
+                                <div class="chadReactCount rCount">
+                                    <p>0</p>
+                                </div>
+                            </div>
+                            <div class="reacts">
+                                <p>I feel you<br>Bro</p>
+                                <img class="feelsReact" src="emoji/emojiFeelYou.gif" alt="">
+                                <div class="feelsReactCount rCount">
+                                    <p>0</p>
+                                </div>
+                            </div>
+                            <div class="reacts">
+                                <p>That's sus<br>Bro</p>
+                                <img class="susReact" src="emoji/emojiAnon.gif" alt="">
+                                <div class="susReactCount rCount">
+                                    <p>0</p>
+                                </div>
+                            </div>
+                            <div class="reacts">
+                                <p>You made<br>my day</p>
+                                <img class="madeDayReact" src="emoji/emojiYesBro.gif" alt="">
+                                <div class="madeDayReactCount rCount">
+                                    <p>0</p>
+                                </div>
+                            </div>
+                        </div>
 								</div>
 							</div>
 						</div>
@@ -167,40 +170,40 @@ function formatPostHTML(postObj) {
 						<div class="reaction-capsule">
 							<div class="emojiContainer">
 								<div class="reactBox">
-									<a href="#" class="reactBtn"><img src="emoji/previewEmoji.gif" alt=""></a>
+									<a class="reactBtn"><img src="emoji/previewEmoji.gif" alt=""></a>
 									<div class="emoji">
-										<div class="reacts">
-											<div class="holder"></div>
-										</div>
-										<div class="reacts">
-											<p>Giga Chad<br>Approved</p>
-											<img src="emoji/emojiChad.gif" alt="">
-											<div class="rCount">
-												<p>69</p>
-											</div>
-										</div>
-										<div class="reacts">
-											<p>I feel you<br>Bro</p>
-											<img src="emoji/emojiFeelYou.gif" alt="">
-											<div class="rCount">
-												<p>420</p>
-											</div>
-										</div>
-										<div class="reacts">
-											<p>That's sus<br>Bro</p>
-											<img src="emoji/emojiAnon.gif" alt="">
-											<div class="rCount">
-												<p>314</p>
-											</div>
-										</div>
-										<div class="reacts">
-											<p>You made<br>my day</p>
-											<img src="emoji/emojiYesBro.gif" alt="">
-											<div class="rCount">
-												<p>42</p>
-											</div>
-										</div>
-									</div>
+                            <div class="reacts">
+                                <div class="holder"></div>
+                            </div>
+                            <div class="reacts">
+                                <p>Giga Chad<br>Approved</p>
+                                <img class="chadReact" src="emoji/emojiChad.gif" alt="">
+                                <div class="chadReactCount rCount">
+                                    <p>0</p>
+                                </div>
+                            </div>
+                            <div class="reacts">
+                                <p>I feel you<br>Bro</p>
+                                <img class="feelsReact" src="emoji/emojiFeelYou.gif" alt="">
+                                <div class="feelsReactCount rCount">
+                                    <p>0</p>
+                                </div>
+                            </div>
+                            <div class="reacts">
+                                <p>That's sus<br>Bro</p>
+                                <img class="susReact" src="emoji/emojiAnon.gif" alt="">
+                                <div class="susReactCount rCount">
+                                    <p>0</p>
+                                </div>
+                            </div>
+                            <div class="reacts">
+                                <p>You made<br>my day</p>
+                                <img class="madeDayReact" src="emoji/emojiYesBro.gif" alt="">
+                                <div class="madeDayReactCount rCount">
+                                    <p>0</p>
+                                </div>
+                            </div>
+                        </div>
 								</div>
 							</div>
 						</div>
@@ -248,48 +251,6 @@ function formatCommentHTML(commentObj) {
                 </p>
             </article>
             <div class="bottom-row">
-                <!--emoji box start-->
-            <div class="reaction-capsule">
-                <div class="emojiContainer">
-                    <div class="reactBox">
-                        <a href="#" class="reactBtn"><img src="emoji/previewEmoji.gif" alt=""></a>
-                        <div class="emoji">
-                            <div class="reacts">
-                                <div class="holder"></div>
-                            </div>
-                            <div class="reacts">
-                                <p>Giga Chad<br>Approved</p>
-                                <img src="emoji/emojiChad.gif" alt="">
-                                <div class="rCount">
-                                    <p>69</p>
-                                </div>
-                            </div>
-                            <div class="reacts">
-                                <p>I feel you<br>Bro</p>
-                                <img src="emoji/emojiFeelYou.gif" alt="">
-                                <div class="rCount">
-                                    <p>420</p>
-                                </div>
-                            </div>
-                            <div class="reacts">
-                                <p>That's sus<br>Bro</p>
-                                <img src="emoji/emojiAnon.gif" alt="">
-                                <div class="rCount">
-                                    <p>314</p>
-                                </div>
-                            </div>
-                            <div class="reacts">
-                                <p>You made<br>my day</p>
-                                <img src="emoji/emojiYesBro.gif" alt="">
-                                <div class="rCount">
-                                    <p>42</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--end of emoji box-->
             </div>
         </div>
     </div>`
@@ -324,48 +285,6 @@ function formatCommentHTML(commentObj) {
                 <img style="width: auto; height: 300px;" src="${commentObj.commentImg}"/>
             </article>
             <div class="bottom-row">
-                <!--emoji box start-->
-            <div class="reaction-capsule">
-                <div class="emojiContainer">
-                    <div class="reactBox">
-                        <a href="#" class="reactBtn"><img src="emoji/previewEmoji.gif" alt=""></a>
-                        <div class="emoji">
-                            <div class="reacts">
-                                <div class="holder"></div>
-                            </div>
-                            <div class="reacts">
-                                <p>Giga Chad<br>Approved</p>
-                                <img src="emoji/emojiChad.gif" alt="">
-                                <div class="rCount">
-                                    <p>69</p>
-                                </div>
-                            </div>
-                            <div class="reacts">
-                                <p>I feel you<br>Bro</p>
-                                <img src="emoji/emojiFeelYou.gif" alt="">
-                                <div class="rCount">
-                                    <p>420</p>
-                                </div>
-                            </div>
-                            <div class="reacts">
-                                <p>That's sus<br>Bro</p>
-                                <img src="emoji/emojiAnon.gif" alt="">
-                                <div class="rCount">
-                                    <p>314</p>
-                                </div>
-                            </div>
-                            <div class="reacts">
-                                <p>You made<br>my day</p>
-                                <img src="emoji/emojiYesBro.gif" alt="">
-                                <div class="rCount">
-                                    <p>42</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--end of emoji box-->
             </div>
         </div>
     </div>`
@@ -405,72 +324,12 @@ function previousPosts(topic, socket) {
             console.log(`Error reading file from disk: ${err}`);
         } else {
             try {
-                switch (topic) {
-                    case "general":
-                        allPosts['AllPosts'][0]['generalPosts'].forEach(post => {
-                            if (post.postNum !== 0) {
-                                const postHTML = formatPostHTML(post);
-                                socket.emit('updatePosts', [postHTML, 'general']);
-                            }
-                        })
-                        break
-                    case "anime":
-                        allPosts['AllPosts'][1]['animePosts'].forEach(post => {
-                            if (post.postNum !== 0) {
-                                const postHTML = formatPostHTML(post);
-                                socket.emit('updatePosts', [postHTML, 'anime']);
-                            }
-                        })
-                        break
-                    case "confessions":
-                        allPosts['AllPosts'][2]['confessionPosts'].forEach(post => {
-                            if (post.postNum !== 0) {
-                                const postHTML = formatPostHTML(post);
-                                socket.emit('updatePosts', [postHTML, 'confessions']);
-                            }
-                        })
-                        break
-                    case "fitness":
-                        allPosts['AllPosts'][3]['fitnessPosts'].forEach(post => {
-                            if (post.postNum !== 0) {
-                                const postHTML = formatPostHTML(post);
-                                socket.emit('updatePosts', [postHTML, 'fitness']);
-                            }
-                        })
-                        break
-                    case "grindset":
-                        allPosts['AllPosts'][4]['grindsetPosts'].forEach(post => {
-                            if (post.postNum !== 0) {
-                                const postHTML = formatPostHTML(post);
-                                socket.emit('updatePosts', [postHTML, 'grindset']);
-                            }
-                        })
-                        break
-                    case "meditation":
-                        allPosts['AllPosts'][5]['meditationPosts'].forEach(post => {
-                            if (post.postNum !== 0) {
-                                const postHTML = formatPostHTML(post);
-                                socket.emit('updatePosts', [postHTML, 'meditation']);
-                            }
-                        })
-                        break
-                    case "journaling":
-                        allPosts['AllPosts'][6]['journalingPosts'].forEach(post => {
-                            if (post.postNum !== 0) {
-                                const postHTML = formatPostHTML(post);
-                                socket.emit('updatePosts', [postHTML, 'journaling']);
-                            }
-                        })
-                        break
-                    case "wellbeing":
-                        allPosts['AllPosts'][7]['wellbeingPosts'].forEach(post => {
-                            if (post.postNum !== 0) {
-                                const postHTML = formatPostHTML(post);
-                                socket.emit('updatePosts', [postHTML, 'wellbeing']);
-                            }
-                        })
-                        break
-                }
+                allPosts['AllPosts'][`${topic}Posts`].forEach(post => {
+                    if (post.postNum !== 0) {
+                        const postHTML = formatPostHTML(post);
+                        socket.emit('updatePosts', [postHTML, topic]);
+                    }
+                })
             } catch (error) {
                 console.log(error);
             }
@@ -484,91 +343,88 @@ function previousComments(commentData, socket) {
             console.log(`Error reading file from disk: ${err}`);
         } else {
             try {
-                switch (commentData[0]) {
-                    case "general":
-                        allPosts['AllPosts'][0]['generalPosts'].forEach(post => {
-                            if (post.postNum === commentData[1]) {
-                                post.comments.forEach(comment => {
-                                    const commentHTML = formatCommentHTML(comment);
-                                    socket.emit('updateComments', [commentHTML, 'general', post.postNum]);
-                                })
-                            }
+                allPosts['AllPosts'][`${commentData[0]}Posts`].forEach(post => {
+                    if (post.postNum === commentData[1]) {
+                        post.comments.forEach(comment => {
+                            const commentHTML = formatCommentHTML(comment);
+                            socket.emit('updateComments', [commentHTML, commentData[0], post.postNum]);
                         })
-                        break
-                    case "anime":
-                        allPosts['AllPosts'][1]['animePosts'].forEach(post => {
-                            if (post.postNum === commentData[1]) {
-                                post.comments.forEach(comment => {
-                                    const commentHTML = formatCommentHTML(comment);
-                                    socket.emit('updateComments', [commentHTML, 'anime', post.postNum]);
-                                })
-                            }
-                        })
-                        break
-                    case "confessions":
-                        allPosts['AllPosts'][2]['confessionPosts'].forEach(post => {
-                            if (post.postNum === commentData[1]) {
-                                post.comments.forEach(comment => {
-                                    const commentHTML = formatCommentHTML(comment);
-                                    socket.emit('updateComments', [commentHTML, 'confessions', post.postNum]);
-                                })
-                            }
-                        })
-                        break
-                    case "fitness":
-                        allPosts['AllPosts'][3]['fitnessPosts'].forEach(post => {
-                            if (post.postNum === commentData[1]) {
-                                post.comments.forEach(comment => {
-                                    const commentHTML = formatCommentHTML(comment);
-                                    socket.emit('updateComments', [commentHTML, 'fitness', post.postNum]);
-                                })
-                            }
-                        })
-                        break
-                    case "grindset":
-                        allPosts['AllPosts'][4]['grindsetPosts'].forEach(post => {
-                            if (post.postNum === commentData[1]) {
-                                post.comments.forEach(comment => {
-                                    const commentHTML = formatCommentHTML(comment);
-                                    socket.emit('updateComments', [commentHTML, 'grindset', post.postNum]);
-                                })
-                            }
-                        })
-                        break
-                    case "meditation":
-                        allPosts['AllPosts'][5]['meditationPosts'].forEach(post => {
-                            if (post.postNum === commentData[1]) {
-                                post.comments.forEach(comment => {
-                                    const commentHTML = formatCommentHTML(comment);
-                                    socket.emit('updateComments', [commentHTML, 'meditation', post.postNum]);
-                                })
-                            }
-                        })
-                        break
-                    case "journaling":
-                        allPosts['AllPosts'][6]['journalingPosts'].forEach(post => {
-                            if (post.postNum === commentData[1]) {
-                                post.comments.forEach(comment => {
-                                    const commentHTML = formatCommentHTML(comment);
-                                    socket.emit('updateComments', [commentHTML, 'journaling', post.postNum]);
-                                })
-                            }
-                        })
-                        break
-                    case "wellbeing":
-                        allPosts['AllPosts'][7]['wellbeingPosts'].forEach(post => {
-                            if (post.postNum === commentData[1]) {
-                                post.comments.forEach(comment => {
-                                    const commentHTML = formatCommentHTML(comment);
-                                    socket.emit('updateComments', [commentHTML, 'wellbeing', post.postNum]);
-                                })
-                            }
-                        })
-                        break
-                }
+                    }
+                })
             } catch (error) {
                 console.log(error);
             }
+        }
+    })
+}
+
+function storeReactions(reactionObj, socket) {
+    jsonfile.readFile('./data/posts.json', (err, allPosts) => {
+        if (err) {
+            console.log(err);
+        } else {
+            if (socket.data.alreadyReacted.length === 0) {
+                newPosts = allPosts['AllPosts'][`${reactionObj['topic']}Posts`].map(post => {
+                    if (post.postNum === reactionObj['postNumber']) {
+                        post.postReactions[`${reactionObj['reaction']}`]++
+                        return post;
+                    } else {
+                        return post;
+                    }
+                })
+                allPosts['AllPosts'][`${reactionObj['topic']}Posts`] = newPosts;
+                socket.data.alreadyReacted.push({
+                    postNum: reactionObj['postNumber'],
+                    postReaction: reactionObj['reaction']
+                })
+                jsonfile.writeFile('./data/posts.json', allPosts)
+            } else {
+                if (socket.data.alreadyReacted.some(alreadyObj => alreadyObj['postNum'] === reactionObj['postNumber'] && alreadyObj['postReaction'] === reactionObj['reaction'])) {
+                    newPosts = allPosts['AllPosts'][`${reactionObj['topic']}Posts`].map(post => {
+                        if (post.postNum === reactionObj['postNumber']) {
+                            post.postReactions[`${reactionObj['reaction']}`]--
+                            return post;
+                        } else {
+                            return post;
+                        }
+                    })
+                    allPosts['AllPosts'][`${reactionObj['topic']}Posts`] = newPosts;
+                    jsonfile.writeFile('./data/posts.json', allPosts)
+                    socket.data.alreadyReacted.splice(socket.data.alreadyReacted.findIndex(alreadyObj => alreadyObj['postNum'] === reactionObj['postNumber'] && alreadyObj['postReaction'] === reactionObj['reaction']), 1);
+                } else {
+                    newPosts = allPosts['AllPosts'][`${reactionObj['topic']}Posts`].map(post => {
+                        if (post.postNum === reactionObj['postNumber']) {
+                            post.postReactions[`${reactionObj['reaction']}`]++
+                            return post;
+                        } else {
+                            return post;
+                        }
+                    })
+                    allPosts['AllPosts'][`${reactionObj['topic']}Posts`] = newPosts;
+                    socket.data.alreadyReacted.push({
+                        postNum: reactionObj['postNumber'],
+                        postReaction: reactionObj['reaction']
+                    })
+                    jsonfile.writeFile('./data/posts.json', allPosts)
+                }
+            }
+        }
+
+    })
+    updateReactions(reactionObj, socket);
+}
+
+function updateReactions(reactionObj, socket) {
+    jsonfile.readFile('./data/posts.json', (err, allPosts) => {
+        if (err) {
+            console.log(err)
+        } else {
+            allPosts['AllPosts'][`${reactionObj['topic']}Posts`].forEach(post => {
+                socket.emit('updateReactions', {
+                    postNum: post.postNum,
+                    postReactions: post.postReactions
+                })
+            })
         }
     })
 }
@@ -610,70 +466,22 @@ app.post('/sendPost', (req, res) => {
                     postDateTime: Date.now(),
                     postText: data.postText,
                     postImg: data.postImg,
-                    postReactions: [],
+                    postReactions:
+                    {
+                        "chad": 0,
+                        "sad": 0,
+                        "sus": 0,
+                        "good": 0
+                    },
                     comments: []
                 }
-                switch (data['postTopic']) {
-                    case 'general':
-                        postObj['postNum'] = allPosts['AllPosts'][0]['generalPosts'].at(-1).postNum + 1;
-                        allPosts['AllPosts'][0]['generalPosts'].push(postObj);
-                        jsonfile.writeFile('./data/posts.json', allPosts);
-                        updatePostHTML(postObj, 'general');
-                        res.status(201).send();
-                        break
-                    case 'anime':
-                        postObj['postNum'] = allPosts['AllPosts'][1]['animePosts'].at(-1).postNum + 1;
-                        allPosts['AllPosts'][1]['animePosts'].push(postObj);
-                        jsonfile.writeFile('./data/posts.json', allPosts);
-                        updatePostHTML(postObj, 'anime');
-                        res.status(201).send();
-                        break
-                    case 'confessions':
-                        postObj['postNum'] = allPosts['AllPosts'][2]['confessionPosts'].at(-1).postNum + 1;
-                        allPosts['AllPosts'][2]['confessionPosts'].push(postObj);
-                        jsonfile.writeFile('./data/posts.json', allPosts);
-                        updatePostHTML(postObj, 'confessions');
-                        res.status(201).send();
-                        break
-                    case 'fitness':
-                        postObj['postNum'] = allPosts['AllPosts'][3]['fitnessPosts'].at(-1).postNum + 1;
-                        allPosts['AllPosts'][3]['fitnessPosts'].push(postObj);
-                        jsonfile.writeFile('./data/posts.json', allPosts);
-                        updatePostHTML(postObj, 'fitness');
-                        res.status(201).send();
-                        break
-                    case 'grindset':
-                        postObj['postNum'] = allPosts['AllPosts'][4]['grindsetPosts'].at(-1).postNum + 1;
-                        allPosts['AllPosts'][4]['grindsetPosts'].push(postObj);
-                        jsonfile.writeFile('./data/posts.json', allPosts);
-                        updatePostHTML(postObj, 'grindset');
-                        res.status(201).send();
-                        break
-                    case 'meditation':
-                        postObj['postNum'] = allPosts['AllPosts'][5]['meditationPosts'].at(-1).postNum + 1;
-                        allPosts['AllPosts'][5]['meditationPosts'].push(postObj);
-                        jsonfile.writeFile('./data/posts.json', allPosts);
-                        updatePostHTML(postObj, 'meditation');
-                        res.status(201).send();
-                        break
-                    case 'journaling':
-                        postObj['postNum'] = allPosts['AllPosts'][6]['journalingPosts'].at(-1).postNum + 1;
-                        allPosts['AllPosts'][6]['journalingPosts'].push(postObj);
-                        jsonfile.writeFile('./data/posts.json', allPosts);
-                        updatePostHTML(postObj, 'journaling');
-                        res.status(201).send();
-                        break
-                    case 'wellbeing':
-                        postObj['postNum'] = allPosts['AllPosts'][7]['wellbeingPosts'].at(-1).postNum + 1;
-                        allPosts['AllPosts'][7]['wellbeingPosts'].push(postObj);
-                        jsonfile.writeFile('./data/posts.json', allPosts);
-                        updatePostHTML(postObj, 'wellbeing');
-                        res.status(201).send();
-                        break
-                    default:
-                        res.status(400).send()
-                        break
-                }
+
+                postObj['postNum'] = allPosts['AllPosts'][`${data['postTopic']}Posts`].at(-1).postNum + 1;
+                allPosts['AllPosts'][`${data['postTopic']}Posts`].push(postObj);
+                jsonfile.writeFile('./data/posts.json', allPosts);
+                updatePostHTML(postObj, data['postTopic']);
+                res.status(201).send();
+
             } catch (error) {
                 console.log(error);
                 res.status(400).send(error);
@@ -695,91 +503,15 @@ app.post('/sendComment', (req, res) => {
                     commentText: data.commentText,
                     commentImg: data.commentImg
                 }
-                switch (data['postTopic']) {
-                    case 'general':
-                        allPosts['AllPosts'][0]['generalPosts'].forEach(post => {
-                            if (post.postNum === data.commentPostNum) {
-                                post.comments.push(commentObj);
-                            }
-                        })
-                        jsonfile.writeFile('./data/posts.json', allPosts);
-                        updateCommentHTML(commentObj, 'general', data.commentPostNum);
-                        res.status(201).send();
-                        break
-                    case 'anime':
-                        allPosts['AllPosts'][1]['animePosts'].forEach(post => {
-                            if (post.postNum === data.commentPostNum) {
-                                post.comments.push(commentObj);
-                            }
-                        })
-                        jsonfile.writeFile('./data/posts.json', allPosts);
-                        updateCommentHTML(commentObj, 'anime', data.commentPostNum);
-                        res.status(201).send();
-                        break
-                    case 'confessions':
-                        allPosts['AllPosts'][2]['confessionPosts'].forEach(post => {
-                            if (post.postNum === data.commentPostNum) {
-                                post.comments.push(commentObj);
-                            }
-                        })
-                        jsonfile.writeFile('./data/posts.json', allPosts);
-                        updateCommentHTML(commentObj, 'confessions', data.commentPostNum);
-                        res.status(201).send();
-                        break
-                    case 'fitness':
-                        allPosts['AllPosts'][3]['fitnessPosts'].forEach(post => {
-                            if (post.postNum === data.commentPostNum) {
-                                post.comments.push(commentObj);
-                            }
-                        })
-                        jsonfile.writeFile('./data/posts.json', allPosts);
-                        updateCommentHTML(commentObj, 'fitness', data.commentPostNum);
-                        res.status(201).send();
-                        break
-                    case 'grindset':
-                        allPosts['AllPosts'][4]['grindsetPosts'].forEach(post => {
-                            if (post.postNum === data.commentPostNum) {
-                                post.comments.push(commentObj);
-                            }
-                        })
-                        jsonfile.writeFile('./data/posts.json', allPosts);
-                        updateCommentHTML(commentObj, 'grindset', data.commentPostNum);
-                        res.status(201).send();
-                        break
-                    case 'meditation':
-                        allPosts['AllPosts'][5]['meditationPosts'].forEach(post => {
-                            if (post.postNum === data.commentPostNum) {
-                                post.comments.push(commentObj);
-                            }
-                        })
-                        jsonfile.writeFile('./data/posts.json', allPosts);
-                        updateCommentHTML(commentObj, 'meditation', data.commentPostNum);
-                        res.status(201).send();
-                        break
-                    case 'journaling':
-                        allPosts['AllPosts'][6]['journalingPosts'].forEach(post => {
-                            if (post.postNum === data.commentPostNum) {
-                                post.comments.push(commentObj);
-                            }
-                        })
-                        jsonfile.writeFile('./data/posts.json', allPosts);
-                        updateCommentHTML(commentObj, 'journaling', data.commentPostNum);
-                        res.status(201).send();
-                        break
-                    case 'wellbeing':
-                        allPosts['AllPosts'][7]['wellbeingPosts'].forEach(post => {
-                            if (post.postNum === data.commentPostNum) {
-                                post.comments.push(commentObj);
-                            }
-                        })
-                        jsonfile.writeFile('./data/posts.json', allPosts);
-                        updateCommentHTML(commentObj, 'wellbeing', data.commentPostNum);
-                        res.status(201).send();
-                        break
-                    default:
-                        res.status(400).send('Error bad request.')
-                        break
-                }
+                allPosts['AllPosts'][`${data['postTopic']}Posts`].forEach(post => {
+                    if (post.postNum === data.commentPostNum) {
+                        post.comments.push(commentObj);
+                    }
+                })
+                jsonfile.writeFile('./data/posts.json', allPosts);
+                updateCommentHTML(commentObj, data['postTopic'], data.commentPostNum);
+                res.status(201).send();
+
             } catch (error) {
                 console.log(error);
                 res.status(400).send(error);
