@@ -24,11 +24,14 @@ socket.on('connect', () => {
             updatePosts(postData[0]);
         }
     });
+    // Receive previous comments on post
     socket.on('updateComments', (commentData) => {
         if (commentData[1] === pageTopic && commentMode && parseInt(document.getElementById('commenttext').getAttribute('postnumber')) === commentData[2]) {
             updateComments(commentData[0]);
         }
     })
+    // Reaction Updates
+    socket.on('updateReactions', updateReactions)
     // Receive the GIFs HTML from server
     socket.on('populateGifs', populateGifs);
 });
@@ -111,6 +114,37 @@ function changeSearchBackgroundColourNormal() {
 
 function updatePosts(postHTML) {
     document.querySelector('#postfeed').insertAdjacentHTML("afterbegin", postHTML);
+    
+    // Post Reactions
+    const reactBox = document.querySelector('.reactBox');
+    reactBox.querySelector('.chadReact').addEventListener('click', (e) => {
+        const postNumber = parseInt(e.target.closest('.post').querySelector('#postnum').textContent)
+        socket.emit('sendReaction', 
+        {reaction: "chad",
+         topic: pageTopic,
+         postNumber: postNumber});
+    })
+    reactBox.querySelector('.feelsReact').addEventListener('click', (e) => {
+        const postNumber = parseInt(e.target.closest('.post').querySelector('#postnum').textContent)
+        socket.emit('sendReaction', 
+        {reaction: "sad",
+        topic: pageTopic,
+        postNumber: postNumber});
+    })
+    reactBox.querySelector('.susReact').addEventListener('click', (e) => {
+        const postNumber = parseInt(e.target.closest('.post').querySelector('#postnum').textContent)
+        socket.emit('sendReaction', 
+        {reaction: "sus",
+        topic: pageTopic,
+        postNumber: postNumber});
+    })
+    reactBox.querySelector('.madeDayReact').addEventListener('click', (e) => {
+        const postNumber = parseInt(e.target.closest('.post').querySelector('#postnum').textContent)
+        socket.emit('sendReaction', 
+        {reaction: "good",
+        topic: pageTopic,
+        postNumber: postNumber});
+    })
 
     // Pressing comments svg - opens an option to comment and an option to see replies - and also shows close svg
     document.querySelector('.view-comments').addEventListener('click', (e) => {
@@ -150,6 +184,7 @@ function updatePosts(postHTML) {
         originPost.querySelector('.view-comments').style.display = 'flex';
         originPost.querySelector('.comments-count').style.display = 'flex';
     })
+
 }
 
 // Update the comment HTML
@@ -186,6 +221,18 @@ function populateGifs(gifHTML) {
             addGifPost(e);
         }
     }));
+}
+
+// Update post reactions
+function updateReactions(reactionObj) {
+    document.querySelectorAll('.post').forEach(post => {
+        if (post.querySelector('#postnum').textContent === reactionObj['postNum'].toString()) {
+            post.querySelector('.chadReactCount').querySelector('p').textContent = reactionObj['postReactions']['chad'].toString()
+            post.querySelector('.feelsReactCount').querySelector('p').textContent = reactionObj['postReactions']['sad'].toString()
+            post.querySelector('.susReactCount').querySelector('p').textContent = reactionObj['postReactions']['sus'].toString()
+            post.querySelector('.madeDayReactCount').querySelector('p').textContent = reactionObj['postReactions']['good'].toString()
+        }
+    })
 }
 
 // Event listener for sending a post
