@@ -35,7 +35,7 @@ body {
     max-width: 500px;
     position: absolute;
     bottom: 0%;
-    right: 20%
+    right: 17%
 }
 /*lady chad render*/
 #ladyRender {
@@ -44,7 +44,7 @@ body {
     max-width: 500px;
     position: absolute;
     bottom: 0%;
-    left: 5%
+    left: 2%
 }
 
 /*the main title*/
@@ -114,8 +114,10 @@ body {
 
 /*container for the second part*/
 #gifCrsl {
-    width: auto;
-    height: 700px;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 1.5s;
 }
 
 #logo {
@@ -136,3 +138,12 @@ body {
     animation-duration: 1.5s;
 }
 
+.gifP {
+    border-radius: 3px;
+    transition: all 0.1s;
+}
+
+.gifP:hover {
+    transform: translateY(-10%) scale(1.2);
+    filter: drop-shadow(0 1px 5px rgba(179, 179, 179, 0.485));
+}

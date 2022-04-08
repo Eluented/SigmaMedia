@@ -8,8 +8,6 @@ document.querySelector('#topic').textContent = `${pageTopic.charAt(0).toUpperCas
 // Commenting or Posting?
 let commentMode = false;
 
-const searchSelector = document.querySelector('.search');
-
 // Use connects to server, upon socket conection do the following
 socket.on('connect', () => {
     // Amount of active users is received and page updated accordingly
@@ -101,15 +99,6 @@ function sendComment(e) {
         // Send request to server API
         fetch(`${window.location.origin}/sendComment`, options)
     }
-}
-
-// changing colour of input top right
-function changeSearchBackgroundColour() {
-    searchSelector.style.background = "white";
-}
-// changing colour of input top right
-function changeSearchBackgroundColourNormal() {
-    searchSelector.style.background = "rgb(118, 118, 118)";
 }
 
 function updatePosts(postHTML) {
@@ -240,9 +229,6 @@ document.querySelector('#post-form').addEventListener('submit', sendPost);
 
 // Event listener for sending a comment
 document.querySelector('#comment-form').addEventListener('submit', sendComment);
-
-searchSelector.addEventListener("mouseover", changeSearchBackgroundColour);
-searchSelector.addEventListener("mouseout", changeSearchBackgroundColourNormal);
 
 // Event listener for getting GIFs
 document.querySelector('.gif-forum').addEventListener('submit', searchGifs);
