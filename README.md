@@ -5,6 +5,11 @@ The website is deployed on Heroku:
 
 http://sigma-lap1-project.herokuapp.com/
 
+To run this project locally:
+
+`cd ../SigmaMedia` run `npm install` and then run `npm start`
+Open `http://localhost:3000/` in your default browser
+
 ## Project Brief :thought_balloon:
 * You will be working in small teams to create a community journaling website.
 
