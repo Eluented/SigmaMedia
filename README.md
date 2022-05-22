@@ -1,6 +1,16 @@
 # :fire: Sigma-Media :fire:
 Lap 1 Project with our amazing group: Diren, Jianli, Michael and Onur! We decided to create an anonymous social media website aimed at a specific demographic of people who are obsessed with self-improvement and helping others! :clap:
 
+The website is deployed on Heroku:
+
+http://sigma-lap1-project.herokuapp.com/
+
+To run this project locally:
+
+`cd ../SigmaMedia` run `npm install` and then run `npm start`
+
+Open `http://localhost:3000/` in your default browser
+
 ## Project Brief :thought_balloon:
 * You will be working in small teams to create a community journaling website.
 
