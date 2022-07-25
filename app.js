@@ -330,6 +330,7 @@ function previousPosts(topic, socket) {
                         socket.emit('updatePosts', [postHTML, topic]);
                     }
                 })
+                updateReactions(topic, socket)
             } catch (error) {
                 console.log(error);
             }
@@ -359,7 +360,7 @@ function previousComments(commentData, socket) {
 }
 
 function storeReactions(reactionObj, socket) {
-    jsonfile.readFile('./data/posts.json', (err, allPosts) => {
+    jsonfile.readFile('./data/posts.json', async (err, allPosts) => {
         if (err) {
             console.log(err);
         } else {
@@ -377,7 +378,8 @@ function storeReactions(reactionObj, socket) {
                     postNum: reactionObj['postNumber'],
                     postReaction: reactionObj['reaction']
                 })
-                jsonfile.writeFile('./data/posts.json', allPosts)
+                await jsonfile.writeFile('./data/posts.json', allPosts)
+                updateReactions(reactionObj['topic'], socket);
             } else {
                 if (socket.data.alreadyReacted.some(alreadyObj => alreadyObj['postNum'] === reactionObj['postNumber'] && alreadyObj['postReaction'] === reactionObj['reaction'])) {
                     newPosts = allPosts['AllPosts'][`${reactionObj['topic']}Posts`].map(post => {
@@ -389,7 +391,8 @@ function storeReactions(reactionObj, socket) {
                         }
                     })
                     allPosts['AllPosts'][`${reactionObj['topic']}Posts`] = newPosts;
-                    jsonfile.writeFile('./data/posts.json', allPosts)
+                    await jsonfile.writeFile('./data/posts.json', allPosts)
+                    updateReactions(reactionObj['topic'], socket);
                     socket.data.alreadyReacted.splice(socket.data.alreadyReacted.findIndex(alreadyObj => alreadyObj['postNum'] === reactionObj['postNumber'] && alreadyObj['postReaction'] === reactionObj['reaction']), 1);
                 } else {
                     newPosts = allPosts['AllPosts'][`${reactionObj['topic']}Posts`].map(post => {
@@ -405,22 +408,22 @@ function storeReactions(reactionObj, socket) {
                         postNum: reactionObj['postNumber'],
                         postReaction: reactionObj['reaction']
                     })
-                    jsonfile.writeFile('./data/posts.json', allPosts)
+                    await jsonfile.writeFile('./data/posts.json', allPosts)
+                    updateReactions(reactionObj['topic'], socket);
                 }
             }
         }
 
     })
-    updateReactions(reactionObj, socket);
 }
 
-function updateReactions(reactionObj, socket) {
+function updateReactions(topic) {
     jsonfile.readFile('./data/posts.json', (err, allPosts) => {
         if (err) {
             console.log(err)
         } else {
-            allPosts['AllPosts'][`${reactionObj['topic']}Posts`].forEach(post => {
-                socket.emit('updateReactions', {
+            allPosts['AllPosts'][`${topic}Posts`].forEach(post => {
+                io.emit('updateReactions', {
                     postNum: post.postNum,
                     postReactions: post.postReactions
                 })
@@ -428,6 +431,7 @@ function updateReactions(reactionObj, socket) {
         }
     })
 }
+
 
 function updatePostHTML(postObj, topic) {
     const postHTML = formatPostHTML(postObj);
